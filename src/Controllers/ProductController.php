@@ -2,10 +2,17 @@
 
 namespace Smarthouse\Controllers;
 
+use Smarthouse\Services\TwigService;
+use Symfony\Component\Routing\Annotation\Route;
+
 class ProductController
 {
-    public function print(): void
+    /**
+     * @Route("/good/{id}", name="good")
+     */
+    public function __invoke(array $parameters): string
     {
-        echo "hello from controller";
+        $twig = TwigService::getTwig();
+        return $twig->render('good.twig', ['id' => $parameters['id']]);
     }
 }
