@@ -1,0 +1,71 @@
+.container {
+  width: 1000px;
+  height: 100vh;
+  margin: 0 auto;
+  background-image: url("../img/smartHouse.jpg");
+  background-size: cover;
+  position: relative;
+}
+.registration_form {
+  position: fixed;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  width: 700px;
+  opacity: 0.7;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 7px 13px 24px 13px rgba(0, 0, 0, 0.45);
+}
+.registration_form form {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+.registration_form label {
+  width: 500px;
+  color: maroon;
+}
+.registration_form input,
+textarea {
+  width: 650px;
+  color: maroon;
+  margin-bottom: 10px;
+  min-height: 20px;
+  border-radius: 7px;
+  border: none;
+  background-color: #ddd;
+  padding: 5px 15px;
+}
+.registration_form input[type="button"],
+input[type="reset"] {
+  width: 100px;
+  color: #fff;
+  border: none;
+  background-color: orangered;
+  padding: 5px 15px;
+  margin: 0 15px;
+}
+.button_cont {
+  display: flex;
+  justify-content: center;
+  width: 650px;
+}
+h3 {
+  width: 100%;
+  background-color: orangered;
+  color: #fff;
+  text-align: center;
+}
+.error_data {
+  color: maroon !important;
+  background-color: #f79f9f !important;
+}
+.error_notification_div {
+  width: 650px;
+  color: red;
+  font-style: italic;
+  font-weight: 800;
+  padding-left: 15px;
+  padding-bottom: 15px;
+}

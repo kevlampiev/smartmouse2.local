@@ -1,0 +1,122 @@
+.userAccount {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.userAccPanel {
+  padding: 15px;
+  min-width: 450px;
+}
+
+.user_card {
+  width: 150px;
+  height: 150px;
+  float: left;
+  margin-right: 15px;
+  margin-bottom: 15px;
+}
+
+.fieldBlock {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.fieldBlock__label {
+  padding: 0 10px;
+}
+
+.fieldBlock__data {
+  font-weight: 800;
+  font-style: italic;
+  flex: 1;
+  padding: 0 10px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.fieldBlock__editBtn {
+  padding: 0 0 0 10px;
+}
+
+.fieldBlock__editBtn a {
+  text-decoration: none;
+  color: gray;
+}
+
+.userLabel {
+  margin: 15px 15px 0 15px;
+}
+
+.userData {
+  margin: 0;
+  font-weight: 800;
+  font-style: italic;
+  min-width: 200px;
+  display: block;
+}
+
+.fieldEditForm {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
+  width: 300px;
+  padding: 10px;
+  background-color: #fff;
+  color: #333;
+  box-shadow: 8px 8px 19px 5px rgba(0, 0, 0, 0.43);
+  opacity: 0.9;
+  z-index: 17;
+  font-size: 18px;
+}
+
+.fieldEditForm h4 {
+  margin: 0;
+  width: 100%;
+  text-align: left;
+  padding: 5px;
+}
+
+.fieldEditForm div {
+  margin: 2px;
+  border: 1px solid #777;
+  padding: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+}
+.fieldEditForm p {
+  width: 100%;
+  text-align: center;
+}
+.fieldEditForm button {
+  font-size: 12px;
+  height: 25px;
+  width: 75px;
+  border: none;
+  border-radius: 12px;
+  margin: 5px;
+  background-color: #fc6136;
+  color: white;
+  line-height: 1.5;
+}
+.fieldEditForm button:hover {
+  background-color: #222;
+  color: white;
+}
+
+input[type="text"] {
+  width: 250px;
+  color: maroon;
+  margin-bottom: 10px;
+  min-height: 20px;
+  border-radius: 7px;
+  border: none;
+  background-color: #ddd;
+  padding: 5px 15px;
+}

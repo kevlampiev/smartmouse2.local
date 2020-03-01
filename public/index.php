@@ -1,11 +1,9 @@
 <?php
 
-use Smarthouse\Controllers\ProductController;
-use Smarthouse\Controllers\CategoryController;
+
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\RequestContext;
-use Symfony\Component\Routing\RouteCollection;
-use Symfony\Component\Routing\Route;
+
 use Doctrine\Common\Annotations\AnnotationReader;
 use Symfony\Bundle\FrameworkBundle\Routing\AnnotatedRouteControllerLoader;
 use Symfony\Component\Config\FileLocator;
@@ -31,15 +29,11 @@ $loader = new AnnotationDirectoryLoader(
 
 $routes = $loader->load(__DIR__ . '/../src/Controllers/');
 
-// $routes = new RouteCollection();
-// $routes->add('good', new Route('/good/{id}', array('_controller' => ProductController::class)));
-// $routes->add('categories', new Route('/categories', array('_controller' => CategoryController::class)));
-
 $context = new RequestContext('/');
 
 $matcher = new UrlMatcher($routes, $context);
 
-$parameters = $matcher->match('/' . $_GET['route']);
+$parameters = $matcher->match('/' . $_GET['route']); //иначе отказывалась работать с Apache 
 // print_r($parameters);
 
 $controllerClass = $parameters['_controller'];
@@ -47,5 +41,3 @@ $controller = new $controllerClass();
 
 $responce = $controller($parameters);
 echo $responce;
-//print_r($parameters);
-// массив ('_controller' => 'MyController', '_route' => 'route_name')

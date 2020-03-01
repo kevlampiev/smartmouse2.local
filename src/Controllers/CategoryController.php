@@ -12,7 +12,7 @@ class CategoryController
      */
     public function __invoke(): string
     {
-
-        return "Hello";
+        $twig = TwigService::getTwig();
+        return $twig->render('layouts/mainLayout.twig', ['content' => 'good.twig', 'id' => 777]);
     }
 }
