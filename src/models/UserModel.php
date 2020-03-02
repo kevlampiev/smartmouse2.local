@@ -91,13 +91,25 @@ class UserModel
         $this->cartTotal = null;
     }
 
+
+    private function grantAccess(): void
+    {
+        setcookie("is_logged_in", "true");
+        $_SESSION['login'] = $this->login;
+    }
+
+    private function denyAccess(): void
+    {
+        unset($_SESSION['login']);
+        setcookie("is_logged_in", "false", time() - 7 * 24 * 3600);
+    }
     /**
      * Практически автологин
      */
     public function init()
     {
         if ($this->isLogged) {
-            setcookie("is_logged_in", "true"); //наследие царского режима, надо убрать
+            $this->grantAccess();
             return true; //все уже и так хорошо, нечего менять 
         }
 
@@ -107,9 +119,11 @@ class UserModel
             $data = [$_SESSION['login']];
             $stmt = $this->dbConnection->prepare($sql);
             $stmt->execute($data);
-            $this->fillData($stmt->fetchAll(PDO::FETCH_ASSOC)[0]);
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $this->fillData($rows[0]);
+
             $this->isLogged = true;
-            setcookie("is_logged_in", "true"); //наследие царского режима, надо убрать
+            $this->grantAccess();
             return true;
         }
         $this->flushData();
@@ -137,16 +151,15 @@ class UserModel
         }
 
         $this->fillData($row);
-        $_SESSION['login'] = $this->login;
-        setcookie("is_logged_in", "true"); //наследие царского режима, надо убрать
+        $this->grantAccess();
+
         return $row;
     }
 
     public function logout(): void
     {
         $this->isLogged = false;
-        unset($_SESSION['login']);
-        setcookie("is_logged_in", "false"); //наследие царского режима, надо убрать
+        $this->denyAccess();
         $this->flushData();
     }
 }
