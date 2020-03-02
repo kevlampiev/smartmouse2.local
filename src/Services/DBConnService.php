@@ -21,13 +21,11 @@ final class DBConnService
     }
     public static function getConnection(): PDO
     {
-        if (self::$dBase !== null) {
-            return self::$dBase;
+        if (self::$dBase == null) {
+            $connect_str = DB_DRIVER . ':host=' . DB_HOST . ';dbname=' . DB_NAME;
+            self::$dBase = new PDO($connect_str, DB_USER, DB_PASS);
+            self::$dBase->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
         };
-
-        $connect_str = DB_DRIVER . ':host=' . DB_HOST . ';dbname=' . DB_NAME;
-        $dBase = new PDO($connect_str, DB_USER, DB_PASS);
-        $dBase->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
         return self::$dBase;
     }
 }

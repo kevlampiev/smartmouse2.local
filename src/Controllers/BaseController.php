@@ -3,17 +3,18 @@
 namespace Smarthouse\Controllers;
 
 use Smarthouse\Services\TwigService;
+use Smarthouse\Models\UserModel;
 use Symfony\Component\Routing\Annotation\Route;
 
 class BaseController
 {
     /**
-     * @Route("/categories", name="categories")
+     * @Route("/", name="base")
      */
     public function __invoke(): string
     {
-        //$twig = TwigService::getTwig();
-        //return $twig->render('layouts/mainLayout.twig', ['content' => 'good.twig', 'id' => 777]);
-        return "";
+        $twig = TwigService::getTwig();
+        $user = new UserModel();
+        return $twig->render('layouts/mainLayout.twig', ['content' => 'good.twig', 'userInfo' => $user]);
     }
 }

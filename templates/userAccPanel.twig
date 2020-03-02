@@ -1,3 +1,5 @@
+<link rel="stylesheet" type="text/css" href="styles/userAccount.css">
+
 <h2 class="grayTitle">
 	User account
 </h2>
@@ -13,7 +15,7 @@
 			<div class="fieldBlock__label">
 				Login:</div>
 			<div class="fieldBlock__data">
-				{{userInfo['login']}}</div>
+				{{userInfo.getLogin()}}</div>
 			<div class="fieldBlock__editBtn">
 				<a href="#" onclick="startEditUserData('login','Login:')">
 					<i class="fa fa-pencil" aria-hidden="true"></i>
@@ -37,7 +39,7 @@
 			<div class="fieldBlock__label">
 				Name:</div>
 			<div class="fieldBlock__data">
-				{{userInfo['name']}}</div>
+				{{userInfo.name}}</div>
 			<div class="fieldBlock__editBtn">
 				<a href="#" onclick="startEditUserData('name','Full name:')">
 					<i class="fa fa-pencil" aria-hidden="true"></i>
@@ -49,7 +51,7 @@
 			<div class="fieldBlock__label">
 				Phone №:</div>
 			<div class="fieldBlock__data">
-				{{userInfo['phone']}}</div>
+				{{userInfo.phone}}</div>
 			<div class="fieldBlock__editBtn">
 				<a href="#" onclick="startEditUserData('phone','Phone number: ')">
 					<i class="fa fa-pencil" aria-hidden="true"></i>
@@ -61,7 +63,7 @@
 			<div class="fieldBlock__label">
 				E-mail:</div>
 			<div class="fieldBlock__data">
-				{{userInfo['email']}}</div>
+				{{userInfo.email}}</div>
 			<div class="fieldBlock__editBtn">
 				<a href="#" onclick="startEditUserData('email','E-mail adress:')">
 					<i class="fa fa-pencil" aria-hidden="true"></i>
@@ -73,7 +75,7 @@
 			<div class="fieldBlock__label">
 				Adress:</div>
 			<div class="fieldBlock__data">
-				{{userInfo['address']}}</div>
+				{{userInfo.adress}}</div>
 			<div class="fieldBlock__editBtn">
 				<a href="#" onclick="startEditUserData('address','Adress:')">
 					<i class="fa fa-pencil" aria-hidden="true"></i>
@@ -88,11 +90,11 @@
 		</h3>
 		<p>
 			Lorem ipsum dolor sit amet consectetur adipisicing elit.
-			            Corporis dolore fuga porro dolor? Laboriosam provident ex
-			            recusandae odio quaerat ad labore iure ducimus ratione soluta
-			            voluptatem natus saepe nostrum nulla qui perferendis quasi facilis,
-			            neque quo alias doloremque reprehenderit aspernatur dignissimos
-			            aperiam. Temporibus, veniam veritatis debitis nostrum quas beatae sint?
+															            Corporis dolore fuga porro dolor? Laboriosam provident ex
+															            recusandae odio quaerat ad labore iure ducimus ratione soluta
+															            voluptatem natus saepe nostrum nulla qui perferendis quasi facilis,
+															            neque quo alias doloremque reprehenderit aspernatur dignissimos
+															            aperiam. Temporibus, veniam veritatis debitis nostrum quas beatae sint?
 		</p>
 	</div>
 

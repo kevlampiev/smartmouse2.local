@@ -6,7 +6,7 @@ namespace Smarthouse\Models;
 use Smarthouse\Services\DBConnService;
 use PDO;
 
-class User
+class UserModel
 {
     private $login;
     private $pass;
@@ -25,37 +25,37 @@ class User
         $this->isLogged = $this->init();
     }
 
-    public function getLogin(): string
+    public function getLogin(): ?string
     {
         return $this->login;
     }
 
-    public function getPass(): string
+    public function getPass(): ?string
     {
         return $this->pass;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function getPhone(): string
+    public function getPhone(): ?string
     {
         return $this->phone;
     }
 
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    public function getAdress(): string
+    public function getAdress(): ?string
     {
         return $this->adress;
     }
 
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -79,7 +79,7 @@ class User
 
     private function flushData(): void
     {
-        $this->login = null;
+        $this->login = "guest";
         $this->pass = null;
         $this->name = "guest";
         $this->phone = null;
@@ -109,16 +109,18 @@ class User
             $this->isLogged = true;
             return true;
         }
+        $this->flushData();
         return false;
     }
 
     public function logIn(string $login, string $password, ?string $rememberMe): ?array
     {
-        $sql = "SELECT * FROM v_uer_cart_stats WHERE login=?";
+        $sql = "SELECT * FROM v_usr_cart_stats WHERE login=?";
         $stmt = $this->dbConnection->prepare($sql);
 
-        $stmt->execute(['login' => $login]);
-        $row = $stmt->fetchAll(PDO::FETCH_ASSOC)[0];
+        $stmt->execute([$login]);
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $row = $rows[0];
 
         if ($row == []) {
             $this->isLogged = false;
@@ -132,7 +134,7 @@ class User
         }
 
         $this->fillData($row);
-        return $row[0];
+        return $row;
     }
 
     public function logout(): void
