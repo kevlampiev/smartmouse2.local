@@ -57,7 +57,7 @@ let header = new Vue({
     },
     logOut() {
       destroyLocalCard();
-      document.location.href = "/logout.php";
+      document.location.href = "/";
     },
     getData() {
       this.registered = getCookie("is_logged_in") == "true";

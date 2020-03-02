@@ -21,6 +21,7 @@ class UserModel
 
     public function __construct()
     {
+        session_start();
         $this->dbConnection = DBConnService::getConnection();
         $this->isLogged = $this->init();
     }
@@ -96,17 +97,19 @@ class UserModel
     public function init()
     {
         if ($this->isLogged) {
+            setcookie("is_logged_in", "true"); //наследие царского режима, надо убрать
             return true; //все уже и так хорошо, нечего менять 
         }
 
-        if (isset($_SESSION['login'])) {
+        if ($_SESSION['login'] != null) {
             //хороший случай, все уже в системе
-            $sql = "SELECT * FROM v_uer_cart_stats WHERE login=?";
-            $data = ['login' => $_SESSION['login']];
+            $sql = "SELECT * FROM v_usr_cart_stats WHERE login=?";
+            $data = [$_SESSION['login']];
             $stmt = $this->dbConnection->prepare($sql);
             $stmt->execute($data);
             $this->fillData($stmt->fetchAll(PDO::FETCH_ASSOC)[0]);
             $this->isLogged = true;
+            setcookie("is_logged_in", "true"); //наследие царского режима, надо убрать
             return true;
         }
         $this->flushData();
@@ -134,12 +137,16 @@ class UserModel
         }
 
         $this->fillData($row);
+        $_SESSION['login'] = $this->login;
+        setcookie("is_logged_in", "true"); //наследие царского режима, надо убрать
         return $row;
     }
 
     public function logout(): void
     {
         $this->isLogged = false;
+        unset($_SESSION['login']);
+        setcookie("is_logged_in", "false"); //наследие царского режима, надо убрать
         $this->flushData();
     }
 }
