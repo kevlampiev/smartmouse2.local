@@ -4,7 +4,7 @@ namespace Smarthouse\Controllers;
 
 use Smarthouse\Services\TwigService;
 use Symfony\Component\Routing\Annotation\Route;
-use Smarthouse\Models\UserModel;
+use Smarthouse\Models\CustomerModel;
 
 class UserController
 {
@@ -15,7 +15,7 @@ class UserController
     public function __invoke(): string
     {
         $twig = TwigService::getTwig();
-        $user = new UserModel();
+        $user = new CustomerModel();
         return $twig->render(
             'layouts/mainLayout.twig',
             ['content' => 'userAccPanel.twig',  'userInfo' => $user]

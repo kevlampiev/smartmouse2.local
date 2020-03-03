@@ -15,7 +15,6 @@ class UserModel
     private $email;
     private $adress;
     private $description;
-    private $dbConnection;
     private $isLogged;
 
 
@@ -63,9 +62,9 @@ class UserModel
 
 
     /**
-     * Вспомогательные функции 
+     * Вспомогательные функции - утилиты
      */
-    private function fillData(array $userInfo): void
+    protected function fillData(array $userInfo): void
     {
         $this->login = $userInfo['login'];
         $this->pass = $userInfo['pass'];
@@ -78,7 +77,7 @@ class UserModel
         $this->cartTotal = $userInfo['goods_total'];
     }
 
-    private function flushData(): void
+    protected function flushData(): void
     {
         $this->login = "guest";
         $this->pass = null;
@@ -92,21 +91,24 @@ class UserModel
     }
 
 
-    private function grantAccess(): void
+    protected function grantAccess(): void
     {
+        $this->isLogged = true;
         setcookie("is_logged_in", "true");
         $_SESSION['login'] = $this->login;
     }
 
-    private function denyAccess(): void
+    protected function denyAccess(): void
     {
         unset($_SESSION['login']);
         setcookie("is_logged_in", "false", time() - 7 * 24 * 3600);
     }
+
+
     /**
      * Практически автологин
      */
-    public function init()
+    protected function init()
     {
         if ($this->isLogged) {
             $this->grantAccess();
@@ -117,12 +119,10 @@ class UserModel
             //хороший случай, все уже в системе
             $sql = "SELECT * FROM v_usr_cart_stats WHERE login=?";
             $data = [$_SESSION['login']];
-            $stmt = $this->dbConnection->prepare($sql);
-            $stmt->execute($data);
-            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $this->fillData($rows[0]);
+            $row = DBConnService::selectSingleRow($sql, $data);
+            $this->fillData($row);
 
-            $this->isLogged = true;
+
             $this->grantAccess();
             return true;
         }
@@ -132,12 +132,9 @@ class UserModel
 
     public function logIn(string $login, string $password, ?string $rememberMe): ?array
     {
-        $sql = "SELECT * FROM v_usr_cart_stats WHERE login=?";
-        $stmt = $this->dbConnection->prepare($sql);
 
-        $stmt->execute([$login]);
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $row = $rows[0];
+        $sql = "SELECT * FROM v_usr_cart_stats WHERE login=?";
+        $row = DBConnService::selectSingleRow($sql, [$login]);
 
         if ($row == []) {
             $this->isLogged = false;
