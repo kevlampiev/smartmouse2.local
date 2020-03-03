@@ -147,6 +147,9 @@ class UserModel
             return ["error" => "password is incorrect "];
         }
 
+        $sql = "UPDATE users SET last_login=CURRENT_TIMESTAMP() WHERE login=?";
+        DBConnService::execQuery($sql, [$login]);
+
         $this->fillData($row);
         $this->grantAccess();
 
