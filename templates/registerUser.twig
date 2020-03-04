@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>
+			{document}
+		</title>
+	</head>
+
+	<body>
+		<div class="container">
+			<div class="registration_form">
+				<h3>Registration form</h3>
+
+				<form action="#" method="POST" name="regform">
+					<label for="login">Login:</label>
+					<input type="text" name="login" v-model="login" v-bind:class="{error_data: !loginValid&&this.loginEntered}" @input.lazy="loginEntered=true">
+					<div class="error_notification_div login_errors" v-if="!loginValid&&this.loginEntered">
+						Login mustn't be empty and mustn't contain spaces
+					</div>
+
+					<label for="password">Password:</label>
+					<input type="password" name="password" v-model="pass1" v-bind:class="{error_data: !passwordsMatch&&password1Entered&&password2Entered}" @input.lazy="password1Entered=true">
+
+					<label for="repass">Re-enter password:</label>
+					<input type="password" name="repass" v-model="pass2" v-bind:class="{error_data: !passwordsMatch&&password1Entered&&password2Entered}" @input.lazy="password2Entered=true">
+					<div class="error_notification_div password_errors" v-if="!passwordsMatch&&password1Entered&&password2Entered">
+						Passwords don't match
+					</div>
+
+					<label for="name">Name:</label>
+					<input type="text" name="name" @input.lazy="nameEntered=true">
+
+					<label for="phone">Phone number:</label>
+					<input type="text" name="phone" v-model="phone" pattern="2-[0-9]{3}-[0-9]{3}" v-bind:class="{error_data: !phoneValid&&phoneEntered}" @input.lazy="phoneEntered=true">
+					<div class=" error_notification_div phone_errors" v-if="!phoneValid&&phoneEntered">
+						Invalid phone number
+					</div>
+
+					<label for="email">Email:</label>
+					<input type="text" name="email" v-model="email" v-bind:class="{error_data: !emailValid&&emailEntered}" @input.lazy="emailEntered=true">
+					<div class="error_notification_div email_errors" v-if="!emailValid&&emailEntered">
+						e-mail is invalid
+					</div>
+
+					<label for="address">Adress:</label>
+					<textarea name="address" id="address" cols="30" rows="5"></textarea>
+
+					<label for="comment">Comment:</label>
+					<textarea name="comment" id="comment" cols="30" rows="5"></textarea>
+
+					<div class="button_cont">
+						<input type="button" value="Save" @click="allowSend()">
+						<input type="reset" value="Reset" @click="quitPage()">
+					</div>
+
+				</form>
+			</div>
+		</div>
+
+		<div class="error-notification hidden-form">
+			<div>
+				<p class="errors-list">
+					{errors}
+				</p>
+				<button onclick="errWindowClose()">Close</button>
+			</div>
+		</div>
+
+		<link rel="stylesheet" href="styles/mainStyle.css">
+		<link rel="stylesheet" href="styles/signUp.css">
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script src="js/signUp.js"></script>
+
+
+	</body>
+
+</html>

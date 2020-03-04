@@ -17,7 +17,8 @@ class UserLogoutController
         //примитивная форма жизни. Сделано "на вырост"
         $user = new CustomerModel();
         $user->logOut();
-        $twig = TwigService::getTwig();
-        return $twig->render('layouts/mainLayout.twig', ['content' => 'good.twig', 'userInfo' => $user]);
+        return "<script>document.location.href='/';</script>";
+        // $twig = TwigService::getTwig();
+        // return $twig->render('layouts/mainLayout.twig', ['content' => 'good.twig', 'userInfo' => $user]);
     }
 }
