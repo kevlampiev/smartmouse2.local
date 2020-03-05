@@ -6,6 +6,7 @@ namespace Smarthouse\Models;
 use Exception;
 use Smarthouse\Services\DBConnService;
 use Smarthouse\Services\RequestService;
+use DBO;
 
 class UserModel
 {
@@ -192,7 +193,6 @@ class UserModel
 
     public function dataUserErrors(): string
     {
-        //Переделать на возврат массива с раскидыванием ошибок по форме
         $result = "";
         if (empty($this->login)) $result = "- user login must be set <br>";
         //   if (empty($this->pass)) $result = "- password must be set <br>";
@@ -225,5 +225,31 @@ class UserModel
         DBConnService::execQuery($sql, $params);
 
         $this->grantAccess();
+    }
+
+    //Task. Как то надо сделать, чтобы напрямую нелдьзя было пароль передать 
+    public function updateUserField(string $fieldName, string $fieldValue): array
+    {
+        if (!$this->isLogged) {
+            return ["error" => "user is not autorized"];
+        }
+        $sql = "UPDATE users SET " . "$fieldName" . "=? WHERE login=?";
+        try {
+            DBConnService::execQuery($sql, [$fieldValue, $this->login]);
+            return ["status" => "success"];
+        } catch (Exception $e) {
+            return ["error" => $e->getMessage()];
+        }
+    }
+
+    public function updatePassword(string $currentPassword, string $newPassword): array
+    {
+        if (!password_verify($currentPassword, $this->pass)) {
+            return ($this->isLogged) ?
+                ['error' => 'user is not autorised'] :
+                ['error' => 'current password is invalid'];
+        }
+        $this->pass = password_hash($newPassword, PASSWORD_DEFAULT);
+        $this->updateUserField("password", $this->pass);
     }
 }
