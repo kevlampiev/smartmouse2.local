@@ -53,7 +53,7 @@
 					<textarea name="comment" id="comment" cols="30" rows="5"></textarea>
 
 					<div class="button_cont">
-						<input type="button" value="Save" @click="allowSend()">
+						<input type="submit" value="Save" @click="allowSend()">
 						<input type="reset" value="Reset" @click="quitPage()">
 					</div>
 
@@ -61,14 +61,16 @@
 			</div>
 		</div>
 
-		<div class="error-notification hidden-form">
-			<div>
-				<p class="errors-list">
-					{errors}
-				</p>
-				<button onclick="errWindowClose()">Close</button>
+		{% if displayErr %}
+			<div class="error-notification ">
+				<div>
+					<p class="errors-list">
+						{errors}
+					</p>
+					<button onclick="errWindowClose()">Close</button>
+				</div>
 			</div>
-		</div>
+		{% endif %}
 
 		<link rel="stylesheet" href="styles/mainStyle.css">
 		<link rel="stylesheet" href="styles/signUp.css">

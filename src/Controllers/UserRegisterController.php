@@ -14,11 +14,22 @@ class UserRegisterController
 
     public function __invoke(): string
     {
-
         $user = new CustomerModel();
-        // $user->logOut();
-        // return "<script>document.location.href='/';</script>";
-        $twig = TwigService::getTwig();
-        return $twig->render('registerUser.twig', ['document' => 'Smarthouse registration', 'userInfo' => $user]);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $user->readPostRequest();
+            $errorsList = $user->dataUserErrors();
+            if ($errorsList != '') {
+                $twig = TwigService::getTwig();
+                $result = $twig->render('registerUser.twig', ['document' => 'Smarthouse registration', 'userInfo' => $user, 'errors' => $errorsList, 'displayErr' => true]);
+            } else {
+                $user->registerNewUser();
+                $result = "<script>document.location.href='/';</script>";
+            }
+        } else {
+            $twig = TwigService::getTwig();
+            $result = $twig->render('registerUser.twig', ['document' => 'Smarthouse registration', 'userInfo' => $user, 'errors' => "", 'displayErr' => false]);
+        }
+        return $result;
     }
 }

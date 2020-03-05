@@ -52,7 +52,11 @@ final class DBConnService
     public static function selectSingleRow(string $sql, array $params): array
     {
         $result = self::selectRowsSet($sql, $params);
-        return $result[0];
+        if ($result != []) {
+            return $result[0];
+        } else {
+            return [];
+        }
     }
 
     /**
