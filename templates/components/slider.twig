@@ -1,0 +1,20 @@
+<div class="slider centered">
+
+	<div v-for="slide of slides" :slide="slide" :key="slide.imgFile">
+		<div v-bind:class="slide.currentClass">
+			<img v-bind:src="slide.imgFile" alt="slide.fileComment" class="grayImg">
+		</div>
+	</div>
+
+
+	<i class="fas fa-chevron-circle-right slider-rightArrow" @click="nextSlideRight()"></i>
+	<i class="fas fa-chevron-circle-left slider-leftArrow" @click="nextSlideLeft()"></i>
+	<div class="slider__comment cyanStyled">
+		${slides[currentIdx].slideText}
+	</div>
+
+</div>
+
+<link rel="stylesheet" href="styles/slider.css">
+
+<script src="js/slider.js" defer></script>

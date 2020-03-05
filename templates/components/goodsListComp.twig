@@ -1,0 +1,23 @@
+<div class="goods-list">
+	<h2 class="grayTitle">
+		{{ goodListTitle }}
+	</h2>
+
+	{% for good in goods %}
+
+		<div class="goods-item">
+
+			<img src="/img/goods/{{good.img}}" ; ?>>
+			<h3>
+				{{good.name}}
+			</h3>
+			<p>
+				{{good.price}}
+				{{good.currency}}</p>
+			<button type="submit" class="buiItBtn orangeStyled" onclick={{" addItemToCarts( g_id ,'g_name','g_img','g_price','g_currency')"|replace( "g_id":good.id, "g_name":good.name, "g_img":good.img, "g_price":good.price, "g_currency":good.currency)}}>
+				Buy it
+			</button>
+		</div>
+	{% endfor %}
+
+</div>
