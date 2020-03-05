@@ -4,7 +4,7 @@ namespace Smarthouse\Controllers;
 
 //use Smarthouse\Services\TwigService;
 use Symfony\Component\Routing\Annotation\Route;
-use Smarthouse\Models\UserModel;
+use Smarthouse\Models\CustomerModel;
 
 class UserLoginController
 {
@@ -15,7 +15,7 @@ class UserLoginController
     public function __invoke(): string
     {
         //примитивная форма жизни
-        $user = new UserModel();
+        $user = new CustomerModel();
 
         $input = json_decode(file_get_contents("php://input"), true);
 

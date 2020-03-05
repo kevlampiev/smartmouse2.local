@@ -3,6 +3,7 @@
 namespace Smarthouse\Services;
 
 use PDO;
+use PDOException;
 
 define('DB_DRIVER', 'mysql');
 define('DB_HOST', '195.133.1.84');
@@ -24,8 +25,52 @@ final class DBConnService
         if (self::$dBase == null) {
             $connect_str = DB_DRIVER . ':host=' . DB_HOST . ';dbname=' . DB_NAME;
             self::$dBase = new PDO($connect_str, DB_USER, DB_PASS);
-            self::$dBase->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+            self::$dBase->exec('SET NAMES UTF8');
+            self::$dBase->setAttribute(PDO::ATTR_EMULATE_PREPARES, PDO::FETCH_ASSOC);
         };
         return self::$dBase;
+    }
+
+    /**
+     * Для операторов SELECT и вызовов процедур, возвращающих наборы данных. Много строк
+     */
+    public static function selectRowsSet(string $sql, array $params): array
+    {
+        try {
+            $stmt = self::getConnection()->prepare($sql);
+            $stmt->execute($params);
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $rows = ['error', $e->getMessage()];
+        }
+        return $rows;
+    }
+
+    /**
+     * Для операторов SELECT и вызовов процедур, возвращающих наборы данных. Только 1 строка 
+     */
+    public static function selectSingleRow(string $sql, array $params): array
+    {
+        $result = self::selectRowsSet($sql, $params);
+        if ($result != []) {
+            return $result[0];
+        } else {
+            return [];
+        }
+    }
+
+    /**
+     * Для INSERT, DELETE, UPDATE
+     */
+    public static function execQuery(string $sql, array $params): array
+    {
+        try {
+            $stmt = self::getConnection()->prepare($sql);
+            $stmt->execute($params);
+            $result = ['status', 'Ok'];
+        } catch (PDOException $e) {
+            $result = ['status', 'Error: ' . $e->getMessage()];
+        }
+        return $result;
     }
 }
