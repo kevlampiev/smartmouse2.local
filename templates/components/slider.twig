@@ -10,7 +10,9 @@
 	<i class="fas fa-chevron-circle-right slider-rightArrow" @click="nextSlideRight()"></i>
 	<i class="fas fa-chevron-circle-left slider-leftArrow" @click="nextSlideLeft()"></i>
 	<div class="slider__comment cyanStyled">
-		${slides[currentIdx].slideText}
+		{% verbatim %}
+			{{slides[currentIdx].description }}
+		{% endverbatim %}
 	</div>
 
 </div>

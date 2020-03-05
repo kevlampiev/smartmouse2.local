@@ -1,6 +1,5 @@
 let slider = new Vue({
   el: ".slider",
-  delimiters: ["${", "}"],
   data: {
     slides: [],
     readyToSlide: true,
@@ -25,9 +24,8 @@ let slider = new Vue({
       this.slides = JSON.parse(this.getCookie("slides"));
 
       this.slides.forEach(el => {
-        el.imgFile = `img/forSlider/${el.imgFile}`;
+        el.imgFile = `img/forSlider/${el.img}`;
       });
-      // а можно сюда через fetch/axios
     },
 
     nextSlideRight() {
