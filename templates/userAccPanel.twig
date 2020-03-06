@@ -29,7 +29,7 @@
 			<div class="fieldBlock__data">
 				***************</div>
 			<div class="fieldBlock__editBtn">
-				<a href="#" onclick="alert('not available now')">
+				<a href="#" onclick="startEditUserPass()">
 					<i class="fa fa-pencil" aria-hidden="true"></i>
 				</a>
 			</div>
@@ -90,26 +90,38 @@
 		</h3>
 		<p>
 			Lorem ipsum dolor sit amet consectetur adipisicing elit.
-															            Corporis dolore fuga porro dolor? Laboriosam provident ex
-															            recusandae odio quaerat ad labore iure ducimus ratione soluta
-															            voluptatem natus saepe nostrum nulla qui perferendis quasi facilis,
-															            neque quo alias doloremque reprehenderit aspernatur dignissimos
-															            aperiam. Temporibus, veniam veritatis debitis nostrum quas beatae sint?
+																																							Corporis dolore fuga porro dolor? Laboriosam provident ex
+																																							recusandae odio quaerat ad labore iure ducimus ratione soluta
+																																							voluptatem natus saepe nostrum nulla qui perferendis quasi facilis,
+																																							neque quo alias doloremque reprehenderit aspernatur dignissimos
+																																							aperiam. Temporibus, veniam veritatis debitis nostrum quas beatae sint?
 		</p>
 	</div>
 
-	<div class="fieldEditForm hidden-form" data-fieldname="noname">
-
+	<div class="fieldEditForm hidden-form" data-fieldname="noname" id="editAnyButNotPass">
 		<div>
-
 			<h4>variable</h4>
-			<input type="text" value="variable">
-
-
+			<input type="text" value="variable" id="editEnyInput">
 			<button onclick="proceedEditUserData()">Save</button>
 			<button onclick="cancelEditUserData()">Cancel</button>
 		</div>
+	</div>
 
+	<div class="fieldEditForm hidden-form" data-fieldname="password" id="editPass">
+		<div>
+			<h4>Change password</h4>
+			<label for="currentPassword">Current password</label>
+			<input type="password" value="" id="currentPassword">
+
+			<label for="newPassword1">New password</label>
+			<input type="password" value="" id="newPassword1">
+
+			<label for="newPassword2">Re-enter new password</label>
+			<input type="password" value="" id="newPassword2">
+			<br>
+			<button onclick="proceedEditUserPass()">Save</button>
+			<button onclick="cancelEditUserPass()">Cancel</button>
+		</div>
 	</div>
 </div>
 

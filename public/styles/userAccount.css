@@ -109,8 +109,13 @@
   background-color: #222;
   color: white;
 }
+.fieldEditForm label {
+  width: 250px;
+  text-align: left;
+}
 
-input[type="text"] {
+input[type="text"],
+input[type="password"] {
   width: 250px;
   color: maroon;
   margin-bottom: 10px;

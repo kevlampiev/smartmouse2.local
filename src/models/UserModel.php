@@ -70,7 +70,7 @@ class UserModel
     protected function fillData(array $userInfo): void
     {
         $this->login = $userInfo['login'];
-        $this->pass = $userInfo['pass'];
+        $this->pass = $userInfo['password'];
         $this->name = $userInfo['name'];
         $this->phone = $userInfo['phone'];
         $this->email = $userInfo['email'];

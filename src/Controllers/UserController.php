@@ -42,7 +42,7 @@ class UserController
         if ($action == "editUserInfo") {
             switch ($fieldName) {
                 case "password":
-                    $pass = $input['current_password'];
+                    $pass = $input['currentPassword'];
                     $res = $user->updatePassword($pass, $newValue);
                     break;
                 default:
