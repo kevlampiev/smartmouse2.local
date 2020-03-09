@@ -1,14 +1,15 @@
 let cartItem = {
-    props: {
-        cartItem: Object,
-        index: Number
-    },
-    data() {
-        return {
-            img_url: './img/goods/'
-        }
-    },
-    template: `<div class="cartItem">
+  props: {
+    cartItem: Object,
+    index: Number
+  },
+  data() {
+    return {
+      img_url: "./img/goods/"
+    };
+  },
+  template: `<div class="cartItem">
+    
                     <img class="cartItem__img" :src="img_url+cartItem.img" alt="Изображение">
                     <p class="cartItem__name"> {{cartItem.name}} </p>
                     <p class="cartItem__price"> {{cartItem.price.toFixed(2)}}</p>
@@ -26,92 +27,90 @@ let cartItem = {
                     <p class="cartItem__totalSum">
                         {{(Number(cartItem.price)*Number(cartItem.amount)).toFixed(2)}}</p>
                 </div>`
-}
+};
 
 let cart = {
-    props: {
-        isvisiblecart: Boolean
-    },
-    data() {
-        return {
-            cartItems: [],
-            url: '/api/cart'
-        }
-    },
+  props: {
+    isvisiblecart: Boolean
+  },
+  data() {
+    return {
+      cartItems: [],
+      url: "/api/cart"
+    };
+  },
 
-    methods: {
-        getData() {
-            this.cartItems = getLocalCart()
-        },
-
-        sendCart() {
-            console.log('Not relized yet')
-        },
-
-        /**
-         * 
-         * @param {Number} id Поиск товара в корзине по id товара
-         */
-        getCartItem(id) {
-            return this.cartItems.find((el, index) => el.id == id)
-        },
-
-
-        /**
-         * Устанавливаем в корзине новое количество товара или добавляем новый 
-         * @param {Good} good товар который доавляем
-         * @param {Number} amount количество
-         */
-        async addToCart(good, amount = null) {
-            if (amount === null) { amount = 1 }
-            await editCartItem(good, amount)
-        },
-
-
-        /**
-         * Удаляет товар из корзины. Совсем
-         * @param {CartItem} good 
-         */
-        deleteFromCart(good) {
-            console.log('Not relized yet');
-        },
-
-        /**
-         * Удаляет все товары из корзины у которых количество == 0
-         */
-        compressCart() {
-            this.cartItems = this.cartItems.filter(el => el.quantity != 0);
-        }
-
+  methods: {
+    getData() {
+      this.cartItems = getLocalCart();
     },
 
-    computed: {
-        cartSum: function () {
-            let res = 0;
-            this.cartItems.forEach(el => {
-                res += (el.price * el.amount)
-            });
-            return res;
-        },
-
-        cartAmount: function () {
-            let res = 0;
-            this.cartItems.forEach(el => {
-                res += el.amount
-            });
-            return res;
-        }
+    sendCart() {
+      console.log("Not relized yet");
     },
 
-    mounted() {
-        this.getData()
-        //setInterval(this.getData, 500)
-        document.addEventListener('cartChanged', this.getData)
-        document.addEventListener('storage', this.getData)
-
+    /**
+     *
+     * @param {Number} id Поиск товара в корзине по id товара
+     */
+    getCartItem(id) {
+      return this.cartItems.find((el, index) => el.id == id);
     },
 
-    template: `<div class="basketWindow" v-if="isvisiblecart" ref="cart">
+    /**
+     * Устанавливаем в корзине новое количество товара или добавляем новый
+     * @param {Good} good товар который доавляем
+     * @param {Number} amount количество
+     */
+    async addToCart(good, amount = null) {
+      if (amount === null) {
+        amount = 1;
+      }
+      await editCartItem(good, amount);
+    },
+
+    /**
+     * Удаляет товар из корзины. Совсем
+     * @param {CartItem} good
+     */
+    deleteFromCart(good) {
+      console.log("Not relized yet");
+    },
+
+    /**
+     * Удаляет все товары из корзины у которых количество == 0
+     */
+    compressCart() {
+      this.cartItems = this.cartItems.filter(el => el.quantity != 0);
+    }
+  },
+
+  computed: {
+    cartSum: function() {
+      let res = 0;
+      this.cartItems.forEach(el => {
+        res += el.price * el.amount;
+      });
+      return res;
+    },
+
+    cartAmount: function() {
+      let res = 0;
+      this.cartItems.forEach(el => {
+        res += el.amount;
+      });
+      return res;
+    }
+  },
+
+  mounted() {
+    this.getData();
+    //setInterval(this.getData, 500)
+    document.addEventListener("cartChanged", this.getData);
+    document.addEventListener("storage", this.getData);
+  },
+
+  template: `<div class="basketWindow" v-if="isvisiblecart" ref="cart">
                     <div class="basketWindow__refSquare">
 
                     </div>
@@ -130,8 +129,7 @@ let cart = {
                     </div>
                 </div>`,
 
-    components: {
-        'cart-item': cartItem
-    }
-}
-
+  components: {
+    "cart-item": cartItem
+  }
+};
