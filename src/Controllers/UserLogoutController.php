@@ -18,7 +18,5 @@ class UserLogoutController
         $user = new CustomerModel();
         $user->logOut();
         return "<script>document.location.href='/';</script>";
-        // $twig = TwigService::getTwig();
-        // return $twig->render('layouts/mainLayout.twig', ['content' => 'good.twig', 'userInfo' => $user]);
     }
 }

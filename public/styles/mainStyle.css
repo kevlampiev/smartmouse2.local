@@ -117,6 +117,10 @@ body {
   content: ">";
   opacity: 1;
 }
+.userMenu_active {
+  font-weight: 900;
+  color: #333;
+}
 .goods-list {
   display: flex;
   flex-grow: 1;

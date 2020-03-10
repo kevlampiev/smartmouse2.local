@@ -6,7 +6,7 @@ use Smarthouse\Services\TwigService;
 use Symfony\Component\Routing\Annotation\Route;
 use Smarthouse\Models\CustomerModel;
 
-class UserController
+class CustomerController
 {
 
     /**

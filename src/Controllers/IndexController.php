@@ -7,7 +7,7 @@ use Smarthouse\Services\DBConnService;
 use Smarthouse\Models\UserModel;
 use Symfony\Component\Routing\Annotation\Route;
 
-class BaseController
+class IndexController extends BaseCustController
 {
     private function formSliderData(): void
     {
@@ -25,6 +25,24 @@ class BaseController
         return DBConnService::selectRowsSet("SELECT * FROM v_hot_offer", []);
     }
 
+    private function getHotOfferContent(): string
+    {
+        $twig = TwigService::getTwig();
+        return $twig->render('components/goodsListComp.twig', [
+            'goodListTitle' => 'hot offers',
+            'goods' => $this->hotOffers()
+        ]);
+    }
+
+    private function getMostPopularContent(): string
+    {
+        $twig = TwigService::getTwig();
+        return $twig->render('components/goodsListComp.twig', [
+            'goodListTitle' => 'most popular',
+            'goods' => $this->mostPopulars()
+        ]);;
+    }
+
     /**
      * @Route("/", name="base")
      */
@@ -33,28 +51,15 @@ class BaseController
         $this->formSliderData();
 
         $twig = TwigService::getTwig();
-        $hotOffer = $twig->render('components/goodsListComp.twig', [
-            'goodListTitle' => 'hot offers',
-            'goods' => $this->hotOffers()
-        ]);
-
-        $mostPopular = $twig->render('components/goodsListComp.twig', [
-            'goodListTitle' => 'most popular',
-            'goods' => $this->mostPopulars()
-        ]);
-
-        // $content = $twig->render('main.twig', [
-        //     'hotOffer' => $hotOffer,
-        //     'mostPopular' => $mostPopular
-        // ]);
 
         $user = new UserModel();
         return $twig->render(
             'layouts/mainLayout.twig',
             [
                 'content' => "main.twig", 'userInfo' => $user,
-                'hotOffer' => $hotOffer,
-                'mostPopular' => $mostPopular
+                'hotOffer' => $this->getHotOfferContent(),
+                'mostPopular' => $this->getMostPopularContent(),
+                'categories' => $this->getCategories()
             ]
         );
     }
