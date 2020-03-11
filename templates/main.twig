@@ -1,5 +1,3 @@
-{% include 'components/slider.twig' %}
-
-{{ hotOffer | raw}}
-
-{{ mostPopular | raw}}
+{% include 'components/slider.twig' %} {% include
+'components/goodsListComp.twig' with hotOffer only %} {% include
+'components/goodsListComp.twig' with mostPopular only %}

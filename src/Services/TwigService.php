@@ -2,6 +2,7 @@
 
 namespace Smarthouse\Services;
 
+use Smarthouse\Twig\CategoryExtension;
 use \Twig\Loader\FilesystemLoader;
 use  \Twig\Environment;
 
@@ -20,6 +21,7 @@ final class TwigService
 
         $loader = new FilesystemLoader(__DIR__ . '/../../templates');
         self::$twig = new Environment($loader);
+        self::$twig->addExtension(new CategoryExtension());
         return self::$twig;
     }
 }

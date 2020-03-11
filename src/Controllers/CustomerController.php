@@ -6,7 +6,7 @@ use Smarthouse\Services\TwigService;
 use Symfony\Component\Routing\Annotation\Route;
 use Smarthouse\Models\CustomerModel;
 
-class CustomerController
+class CustomerController extends BaseCustController
 {
 
     /**
@@ -27,7 +27,11 @@ class CustomerController
         $user = new CustomerModel();
         return $twig->render(
             'layouts/mainLayout.twig',
-            ['content' => 'userAccPanel.twig',  'userInfo' => $user]
+            [
+                'content' => 'userAccPanel.twig',
+                'categories' => $this->getCategories(),
+                'userInfo' => $user
+            ]
         );
     }
 

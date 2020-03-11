@@ -6,7 +6,6 @@ namespace Smarthouse\Models;
 use Exception;
 use Smarthouse\Services\DBConnService;
 use Smarthouse\Services\RequestService;
-use DBO;
 
 class UserModel
 {

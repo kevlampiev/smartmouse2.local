@@ -25,22 +25,20 @@ class IndexController extends BaseCustController
         return DBConnService::selectRowsSet("SELECT * FROM v_hot_offer", []);
     }
 
-    private function getHotOfferContent(): string
+    private function getHotOfferContent(): array
     {
-        $twig = TwigService::getTwig();
-        return $twig->render('components/goodsListComp.twig', [
+        return [
             'goodListTitle' => 'hot offers',
             'goods' => $this->hotOffers()
-        ]);
+        ];
     }
 
-    private function getMostPopularContent(): string
+    private function getMostPopularContent(): array
     {
-        $twig = TwigService::getTwig();
-        return $twig->render('components/goodsListComp.twig', [
+        return  [
             'goodListTitle' => 'most popular',
             'goods' => $this->mostPopulars()
-        ]);;
+        ];
     }
 
     /**
