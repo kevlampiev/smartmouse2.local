@@ -51,7 +51,7 @@ class SingleGoodModel
         return $this->price;
     }
 
-    public function getCurreny(): ?string
+    public function getCurrency(): ?string
     {
         return $this->currency;
     }

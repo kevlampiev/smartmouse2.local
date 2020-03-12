@@ -6,24 +6,30 @@
 
 {% block content %}
 
-	<div class="main">
-		<div class="good_desc">
+	<!-- <div class="main"> -->
+	<div class="good_desc">
 
 
-			<div class="good_info">
+		<div class="good_info">
 
-				<img class="good_main_img" src="/img/goods/{{ good.getImg() }}" alt="image of the good">
-				<h1 class="good_name">{{ good.getName() }}</h1>
-				<p>{{good.description}}</p>
-				<p class="price_info">
-					{{good.getPrice()}}
-					{{good.getCurrency()}}
-				</p>
-				<button type="submit" class="buiItBtn orangeStyled" onclick="addItemToCarts( {{ good.getId()}},'{{good.getName() }}','{{good.getImg() }}', {{good.getPrice() }} ,'{{good.getCurrency() }}')">Buy it</button>
-			</div>
+			<img class="good_main_img" src="/img/goods/{{ good.getImg() }}" alt="image of the good">
+			<h1 class="good_name">{{ good.getName() }}</h1>
+			<p>{{good.description}}</p>
+			<p class="price_info">
+				{{good.getPrice()}}
+				{{good.getCurrency()}}
+			</p>
+			<button type="submit" class="buiItBtn orangeStyled" onclick="addItemToCarts( {{ good.getId()}},'{{good.getName() }}','{{good.getImg() }}', {{good.getPrice() }} ,'{{good.getCurrency() }}')">Buy it</button>
+		</div>
+		<div class="additional_photos_container">
+			{% for img in good.getAdditionalImgs() %}
+				<img src="/img/goods/{{ img.img }}" alt="Additional photo" class="additional_photo" onclick="showBigImg(this)">
+			{% endfor %}
 		</div>
 
 	</div>
+
+	<!-- </div> -->
 
 	<style>
 		.good_desc {
@@ -41,6 +47,8 @@
 		.good_main_img {
 			float: left;
 			height: 230px;
+			width: 230px;
+			margin-right: 15px;
 		}
 
 		.price_info {
@@ -51,7 +59,28 @@
 			background-color: #999;
 			padding: 5px;
 		}
+		.additional_photos_container {
+			display: flex;
+			justify-items: left;
+		}
+
+		.additional_photo {
+			height: 50px;
+			width: 50px;
+			margin: 5px;
+			border: 1px solid gray;
+		}
 	</style>
+
+	<script>
+
+		function showBigImg(element) {
+let bigImg = document.querySelector('.good_main_img');
+let tmpSrc = bigImg.src;
+bigImg.src = element.src;
+element.src = tmpSrc;
+}
+	</script>
 
 
 {% endblock %}
