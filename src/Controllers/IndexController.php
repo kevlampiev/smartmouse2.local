@@ -15,29 +15,21 @@ class IndexController extends BaseCustController
         setcookie('slides', json_encode($result));
     }
 
-    private function hotOffers(): array
-    {
-        return DBConnService::selectRowsSet("SELECT * FROM v_hot_offer", []);
-    }
-
-    private function mostPopulars(): array
-    {
-        return DBConnService::selectRowsSet("SELECT * FROM v_hot_offer", []);
-    }
-
     private function getHotOfferContent(): array
     {
+        $goods = DBConnService::selectRowsSet("SELECT * FROM v_hot_offer", []);
         return [
             'goodListTitle' => 'hot offers',
-            'goods' => $this->hotOffers()
+            'goods' => $goods
         ];
     }
 
     private function getMostPopularContent(): array
     {
+        $goods = DBConnService::selectRowsSet("SELECT * FROM v_hot_offer", []);
         return  [
             'goodListTitle' => 'most popular',
-            'goods' => $this->mostPopulars()
+            'goods' => $goods
         ];
     }
 
@@ -52,9 +44,10 @@ class IndexController extends BaseCustController
 
         $user = new UserModel();
         return $twig->render(
-            'layouts/mainLayout.twig',
+            'main.twig',
             [
-                'content' => "main.twig", 'userInfo' => $user,
+                'content' => "main.twig",
+                'userInfo' => $user,
                 'hotOffer' => $this->getHotOfferContent(),
                 'mostPopular' => $this->getMostPopularContent(),
                 'categories' => $this->getCategories()

@@ -1,0 +1,57 @@
+{% extends "layouts/main_layout.twig" %}
+
+{% block title %}
+	Smarthouse
+{% endblock %}
+
+{% block content %}
+
+	<div class="main">
+		<div class="good_desc">
+
+
+			<div class="good_info">
+
+				<img class="good_main_img" src="/img/goods/{{ good.getImg() }}" alt="image of the good">
+				<h1 class="good_name">{{ good.getName() }}</h1>
+				<p>{{good.description}}</p>
+				<p class="price_info">
+					{{good.getPrice()}}
+					{{good.getCurrency()}}
+				</p>
+				<button type="submit" class="buiItBtn orangeStyled" onclick="addItemToCarts( {{ good.getId()}},'{{good.getName() }}','{{good.getImg() }}', {{good.getPrice() }} ,'{{good.getCurrency() }}')">Buy it</button>
+			</div>
+		</div>
+
+	</div>
+
+	<style>
+		.good_desc {
+			padding: 25px;
+		}
+
+		.good_name {
+			color: maroon;
+		}
+
+		.good_info {
+			height: 250px;
+		}
+
+		.good_main_img {
+			float: left;
+			height: 230px;
+		}
+
+		.price_info {
+			display: inline-block;
+			color: maroon;
+			font-size: 20px;
+			font-weight: 800;
+			background-color: #999;
+			padding: 5px;
+		}
+	</style>
+
+
+{% endblock %}

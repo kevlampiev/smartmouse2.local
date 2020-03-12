@@ -19,7 +19,7 @@
 		<script src="/js/header.js" defer></script>
 
 
-		<title>{{document}}</title>
+		<title>{% block tittle %} {% endblock %}</title>
 	</head>
 
 	<body>
@@ -33,8 +33,7 @@
 					</div>
 					<div
 						class="userNameDspl">
-						<!-- Сбойный элемент: статический текст. Что-то надо придумать поумнее -->
-						{{userInfo.getName()}}
+						{{ userInfo.getName() }}
 					</div>
 
 
@@ -87,8 +86,8 @@
 
 				</div>
 
-				{% include 'components/categoryMenuComp.twig'%}
-
+				{% include 'components/categoryMenuComp.twig' with categoriesData(selected_id) only %}
+				{# {{ categories()|raw }} #}
 
 				<div class="header__linksBand grayStyled">
 					<div class="searchForm">
@@ -103,7 +102,7 @@
 
 			</div>
 
-			{% include content %}
+			{% block content %} {% endblock %}
 
 			<div class="footer">
 				<div class="footer__additional yellowStyled bottomYellowBordered">

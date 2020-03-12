@@ -3,10 +3,7 @@
 
 namespace Smarthouse\Models;
 
-use Exception;
 use Smarthouse\Services\DBConnService;
-use Smarthouse\Services\RequestService;
-use DBO;
 
 //Вообще нет идей, зачем это все надо
 class GoodsSetModel

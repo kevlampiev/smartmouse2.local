@@ -16,7 +16,7 @@ class CategoryController extends BaseCustController
     {
         $goods = new GoodsSetModel();
         return TwigService::getTwig()->render(
-            'goods_of_category_new.twig',
+            'goods_of_category.twig',
             array_merge([
                 'selected_id' => $params['id'],
                 'goodListTytle' => 'Goods of this category',

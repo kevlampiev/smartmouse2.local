@@ -26,10 +26,8 @@ class CustomerController extends BaseCustController
         $twig = TwigService::getTwig();
         $user = new CustomerModel();
         return $twig->render(
-            'layouts/mainLayout.twig',
+            'user_acc_panel.twig',
             [
-                'content' => 'userAccPanel.twig',
-                'categories' => $this->getCategories(),
                 'userInfo' => $user
             ]
         );

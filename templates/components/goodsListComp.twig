@@ -6,8 +6,9 @@
 	{% for good in goods %}
 
 		<div class="goods-item">
-
-			<img src={{"/img/goods/good.img"|replace({'good.img':good.img} ) }}>
+			<a href="/good/{{good.id}}">
+				<img src={{"/img/goods/good.img"|replace({'good.img':good.img} ) }}>
+			</a>
 			<h3>
 				{{good.name}}</h3>
 			<p>
