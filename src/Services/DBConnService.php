@@ -34,7 +34,7 @@ final class DBConnService
     /**
      * Для операторов SELECT и вызовов процедур, возвращающих наборы данных. Много строк
      */
-    public static function selectRowsSet(string $sql, array $params): array
+    public static function selectRowsSet(string $sql, array $params = []): array
     {
         try {
             $stmt = self::getConnection()->prepare($sql);
@@ -49,7 +49,7 @@ final class DBConnService
     /**
      * Для операторов SELECT и вызовов процедур, возвращающих наборы данных. Только 1 строка 
      */
-    public static function selectSingleRow(string $sql, array $params): array
+    public static function selectSingleRow(string $sql, array $params = []): array
     {
         $result = self::selectRowsSet($sql, $params);
         if ($result != []) {

@@ -1,17 +1,12 @@
 <div class="header__linksBand yellowStyled">
 
-    <ul class="userMenu">
-        {% for category in categories %}
-            <li> 
-                <a 
-                {% if category['current']%}
-                class="userMenu__item active"
-                {% else %}
-                class="userMenu__item"
-                {% endif %}
-                href={{"/category/path"|replace({"path":category['id']}) }}
-                >  {{category['name']}} </a>
-            </li>
-        {% endfor %} 
-    </ul>
+	<ul class="userMenu">
+		{% for category in categories %}
+			<li>
+				<a {% if (category['id']==selected_id) %} class="userMenu__item userMenu_active" {% else %} class="userMenu__item" {% endif %} href={{"/category/path"|replace({"path":category['id']} ) }}>
+					{{category['name']}}
+				</a>
+			</li>
+		{% endfor %}
+	</ul>
 </div>

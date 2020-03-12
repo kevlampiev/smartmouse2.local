@@ -5,7 +5,7 @@ let cartItem = {
   },
   data() {
     return {
-      img_url: "./img/goods/"
+      img_url: "/img/goods/"
     };
   },
   template: `<div class="cartItem">

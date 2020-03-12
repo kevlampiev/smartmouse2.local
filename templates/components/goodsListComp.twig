@@ -6,14 +6,15 @@
 	{% for good in goods %}
 
 		<div class="goods-item">
-
-			<img src={{"/img/goods/good.img"|replace({'good.img':good.img} ) }}>
+			<a href="/good/{{good.id}}">
+				<img src={{"/img/goods/good.img"|replace({'good.img':good.img} ) }}>
+			</a>
 			<h3>
 				{{good.name}}</h3>
 			<p>
 				{{good.price}}
 				{{good.currency}}</p>
-			<button type="submit" class="buiItBtn orangeStyled" onclick={{"addItemToCarts(g_id,'g_name','g_img',g_price,'g_currency')"|replace({ "g_id": good.id, "g_name": good.name, "g_img": good.img, "g_price": good.price, "g_currency": good.currency} )}}>
+			<button type="submit" class="buiItBtn orangeStyled" onclick="addItemToCarts( {{ good.id}},'{{good.name}}','{{good.img}}', {{good.price}} ,'{{good.currency}}')">
 				Buy it
 			</button>
 		</div>

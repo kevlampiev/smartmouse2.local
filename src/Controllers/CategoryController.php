@@ -3,16 +3,25 @@
 namespace Smarthouse\Controllers;
 
 use Smarthouse\Services\TwigService;
+use Smarthouse\Models\GoodsSetModel;
+use Smarthouse\Models\CustomerModel;
 use Symfony\Component\Routing\Annotation\Route;
 
-class CategoryController
+class CategoryController extends BaseCustController
 {
     /**
-     * @Route("/categories", name="categories")
+     * @Route("/category/{id}", name="categories")
      */
-    public function __invoke(): string
+    public function __invoke(array $params): string
     {
-        $twig = TwigService::getTwig();
-        return $twig->render('layouts/mainLayout.twig', ['content' => 'good.twig', 'id' => 777]);
+        $goods = new GoodsSetModel();
+        return TwigService::getTwig()->render(
+            'goods_of_category.twig',
+            array_merge([
+                'selected_id' => $params['id'],
+                'goodListTytle' => 'Goods of this category',
+                'goods' => $goods->getGoodsOfCategory((int) $params['id'])
+            ], $this->baseViewData())
+        );
     }
 }

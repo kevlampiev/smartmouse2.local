@@ -6,7 +6,7 @@ namespace Smarthouse\Controllers;
 use Symfony\Component\Routing\Annotation\Route;
 use Smarthouse\Models\CustomerModel;
 
-class UserLoginController
+class CustomerLoginController
 {
     /**
      * @Route("/userlogin", name="userlogin")
