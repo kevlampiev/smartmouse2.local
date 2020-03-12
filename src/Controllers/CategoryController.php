@@ -14,14 +14,20 @@ class CategoryController extends BaseCustController
      */
     public function __invoke(array $params): string
     {
-        $goods = new GoodsSetModel();
+        $categorySet = new GoodsSetModel();
+        $goods = $categorySet->getGoodsOfCategory((int) $params['id']);
+        if ($goods == []) {
+            return TwigService::getTwig()->render('layouts/not_found.twig', []);
+        }
+        $user = new CustomerModel();
         return TwigService::getTwig()->render(
             'goods_of_category.twig',
-            array_merge([
+            [
                 'selected_id' => $params['id'],
                 'goodListTytle' => 'Goods of this category',
-                'goods' => $goods->getGoodsOfCategory((int) $params['id'])
-            ], $this->baseViewData())
+                'userInfo' => $user,
+                'goods' => $goods
+            ]
         );
     }
 }

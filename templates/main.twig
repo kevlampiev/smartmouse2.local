@@ -1,4 +1,11 @@
-{% extends 'layouts/main_layout.twig' %} {% block title %} Smarthouse 2.0 {%
-endblock %} {% block content %} {% include 'components/slider.twig' %} {%
-include 'components/goodsListComp.twig' with hotOffer only %} {% include
-'components/goodsListComp.twig' with mostPopular only %} {% endblock %}
+{% extends 'layouts/main_layout.twig' %}
+{% block title %}
+	Smarthouse 2.0
+{% endblock %}
+{% block content %}
+	{% include 'components/slider.twig' %}
+	{%
+include 'components/goods_list_comp.twig' with hotOffer only %}
+	{% include
+'components/goods_list_comp.twig' with mostPopular only %}
+{% endblock %}

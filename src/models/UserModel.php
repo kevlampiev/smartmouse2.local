@@ -112,10 +112,12 @@ class UserModel
      */
     protected function init()
     {
+        setcookie("is_logged_in", "false", time() - 7 * 24 * 3600); //иначе почему то не затирает куки на некоторых страницах и vue.js срабатывает плохо
         if ($this->isLogged) {
             $this->grantAccess();
             return true; //все уже и так хорошо, нечего менять 
         }
+
 
         if ($_SESSION['login'] != null) {
             //хороший случай, все уже в системе
@@ -128,6 +130,7 @@ class UserModel
                     return false;
                 } else {
                     $this->fillData($row);
+                    $this->grantAccess();
                 }
             } catch (Exception $e) {
                 $this->denyAccess();

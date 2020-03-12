@@ -60,7 +60,7 @@ let header = new Vue({
       document.location.href = "/";
     },
     getData() {
-      this.registered = getCookie("is_logged_in") == "true";
+      this.registered = getCookie("is_logged_in") === "true";
     }
   },
   mounted() {

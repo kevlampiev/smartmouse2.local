@@ -4,7 +4,7 @@ namespace Smarthouse\Controllers;
 
 use Smarthouse\Services\TwigService;
 use Smarthouse\Services\DBConnService;
-use Smarthouse\Models\UserModel;
+use Smarthouse\Models\CustomerModel;
 use Symfony\Component\Routing\Annotation\Route;
 
 class IndexController extends BaseCustController
@@ -42,7 +42,7 @@ class IndexController extends BaseCustController
 
         $twig = TwigService::getTwig();
 
-        $user = new UserModel();
+        $user = new CustomerModel();
         return $twig->render(
             'main.twig',
             [
