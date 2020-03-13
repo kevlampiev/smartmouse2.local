@@ -1,4 +1,4 @@
-let dbCardUrl = "/cart.php";
+let dbCardUrl = "/cart_operations";
 
 /**
  * Возвращает содержимое корзины в виде массива item'ов
