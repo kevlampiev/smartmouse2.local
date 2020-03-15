@@ -119,7 +119,7 @@ class UserModel
         }
 
 
-        if ($_SESSION['login'] != null) {
+        if (isset($_SESSION['login'])) {
             //хороший случай, все уже в системе
             try {
                 $sql = "SELECT * FROM v_usr_cart_stats WHERE login=?";
