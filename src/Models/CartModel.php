@@ -12,6 +12,7 @@ class CartModel
 
     public function __construct()
     {
+        session_start();
         $this->login = isset($_SESSION['login']) ? $_SESSION['login'] : null;
         $this->goodsSet = $this->getCart();
     }
@@ -48,37 +49,78 @@ class CartModel
         }
         //Убедились, что товар есть, можно добавлять
         $sql = 'CALL add_to_cart(?,?,?)';
-        return DBConnService::execQuery(
+        $result=DBConnService::execQuery(
             $sql,
             [$this->login, $item['id'], $item['amount']]
         );
+        if ($result['status']=='Ok') {
+            $this->goodsSet[]=$item;
+        }
+        return $result;
     }
 
     public function editCartItem(array $item): array
     {
-        if ($this->goodsList == null) {
+        if ($this->goodsSet == null) {
             return ['error' => 'user is not defined'];
         }
 
         //проверка а есть ли такой товар
         $sql = "SELECT * FROM goods WHERE id=?";
-        $res = selectRows($sql, [$item['id']]);
-        if (count($res) === 0) {
+        $res = DBConnService::selectRowsSet($sql, [$item['id']]);
+        if ($res==[]) {
             return ['error' => "A good with id={$item['id']} doesn't exist"];
         }
         $sql = 'CALL edit_cart_item(?,?,?)';
-        insDelUpdRows(
+        $response=DBConnService::execQuery(
             $sql,
             [$_SESSION['login'], $item['id'], $item['amount']]
         );
-        return ['status' => 'All went fine ... probably...'];
+        if ($response['status']=="Ok") {
+            foreach($this->goodsSet as $good) {
+                if ($good['id']==$item['id']) {
+                    $found=true;
+                    $good['amount']=$item['amount'];
+                }
+            }
+            if (!$fount) {
+                $this->goodsSet[]=$item;
+            }
+        }
+        return $response;
     }
 
-    function mergeCarts(array $localCart): array
+    public function mergeCarts(array $localCart): array
     {
         foreach ($localCart as $item) {
-            addToCart($item);
+            $this->addToCart($item);
         }
-        return getCart();
+        $this->goodsSet=$this->getCart();
+        return $this->goodsSet;
     }
+
+    public function handleCart(string $action, array $item=null):array {
+        switch ($action) {
+            case 'getCart':
+                $result = $this->getCart();
+                break;
+            case 'saveCart':
+                $result = [];
+                break;
+            case 'mergeCarts':
+                $result = $this->mergeCarts($item);
+                break;
+            case 'addToCart':
+                $result = $this->addToCart($item);
+                break;
+            case 'editCartItem':
+                $result = $this->editCartItem($item);
+                break;
+            default:
+                $result=['error' => "Operation '$action' is not defined ... "];
+        }     
+        return $result;   
+    }
+
+
 }

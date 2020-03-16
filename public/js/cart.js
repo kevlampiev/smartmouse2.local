@@ -36,7 +36,7 @@ let cart = {
   data() {
     return {
       cartItems: [],
-      url: "/api/cart"
+      url: "/cart_operations"
     };
   },
 

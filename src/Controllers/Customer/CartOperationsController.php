@@ -2,12 +2,11 @@
 
 namespace Smarthouse\Controllers\Customer;
 
-use Smarthouse\Services\TwigService;
-use Smarthouse\Models\GoodsSetModel;
-use Smarthouse\Models\CustomerModel;
+
+use Smarthouse\Models\CartModel;
 use Symfony\Component\Routing\Annotation\Route;
 
-class CartOperations
+class CartOperationsController
 {
 
 
@@ -26,12 +25,16 @@ class CartOperations
 
     public function showView(): string
     {
-        return "No presents for Christmess";
+        return "<h1> No presents for Christmass </h1>";
     }
 
     public function cartOperationRequest(): string
     {
-
-        return "qq";
+        $input = json_decode(file_get_contents("php://input"), true);
+        $action = $input['action'];
+        $item = array_key_exists('item', $input)?$input['item']:null;
+        
+        $cart=new CartModel();       
+        return json_encode($cart->handleCart($action, $item));
     }
 }
