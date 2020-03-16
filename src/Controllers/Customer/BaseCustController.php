@@ -1,6 +1,6 @@
 <?php
 
-namespace Smarthouse\Controllers;
+namespace Smarthouse\Controllers\Customer;
 
 use Smarthouse\Models\CategoriesModel;
 use Smarthouse\Models\CustomerModel;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Smarthouse\Controllers;
+namespace Smarthouse\Controllers\Customer;
 
 use Smarthouse\Services\TwigService;
 use Smarthouse\Services\DBConnService;
