@@ -24,9 +24,14 @@ class CartOperations
         }
     }
 
-    public function cartOperationRequest():string {
+    public function showView(): string
+    {
+        return "No presents for Christmess";
+    }
 
-        
-        retun "qq";
+    public function cartOperationRequest(): string
+    {
+
+        return "qq";
     }
 }

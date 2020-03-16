@@ -4,23 +4,22 @@ namespace Smarthouse\Models;
 
 use Smarthouse\Services\DBConnService;
 
-class CartModel {
+class CartModel
+{
 
     protected $login;
     protected $goodsSet;
-    
-    public function __construct(?string $login=null) {
-        if ($login==null)&&(isset($_SESSION['login'])) {
-            $login=$_SESSION['login'];
-        }
-        $this->login=$login;
-        
-        $this->goodsSet=$this->getCard();
+
+    public function __construct()
+    {
+        $this->login = isset($_SESSION['login']) ? $_SESSION['login'] : null;
+        $this->goodsSet = $this->getCart();
     }
 
-    public function getCart(): array {
+    public function getCart(): array
+    {
 
-        if ($this->login==null) {
+        if ($this->login == null) {
             return [];
         }
 
@@ -33,18 +32,17 @@ class CartModel {
                 FROM v_cart
                 WHERE user=?
                 ORDER BY name";
-        return DBConnService::selectRows($sql, [$this->login]);
+        return DBConnService::selectRowsSet($sql, [$this->login]);
     }
 
-    public function addToCart(array $item): array {
-        
-        if ($this->login==null) {
+    public function addToCart(array $item): array
+    {
+        if ($this->login == null) {
             return ['error' => 'user is not defined'];
         }
-
         //проверка а есть ли такой товар
         $sql = "SELECT * FROM goods WHERE id=?";
-        $res = DBConnService::selectRows($sql, [$item['id']]);
+        $res = DBConnService::selectRowsSet($sql, [$item['id']]);
         if (count($res) === 0) {
             return ['error' => "A good with id={$item['id']} doesn't exist"];
         }
@@ -56,9 +54,9 @@ class CartModel {
         );
     }
 
-    function editCartItem(array $item): array
+    public function editCartItem(array $item): array
     {
-        if ($this->goodsList==null) {
+        if ($this->goodsList == null) {
             return ['error' => 'user is not defined'];
         }
 
@@ -76,15 +74,11 @@ class CartModel {
         return ['status' => 'All went fine ... probably...'];
     }
 
-function mergeCarts(array $localCart): array
-{
-    foreach ($localCart as $item) {
-        addToCart($item);
+    function mergeCarts(array $localCart): array
+    {
+        foreach ($localCart as $item) {
+            addToCart($item);
+        }
+        return getCart();
     }
-    return getCart();
 }
-
-
-}
-
-?>
