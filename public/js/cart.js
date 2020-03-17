@@ -12,7 +12,7 @@ let cartItem = {
     
                     <img class="cartItem__img" :src="img_url+cartItem.img" alt="Изображение">
                     <p class="cartItem__name"> {{cartItem.name}} </p>
-                    <p class="cartItem__price"> {{cartItem.price.toFixed(2)}}</p>
+                    <p class="cartItem__price"> {{parseFloat(cartItem.price).toFixed(2)}}</p>
                     <button class="cartItem__plusBtn" @click="$parent.addToCart(cartItem,cartItem.amount+1)">
                         <i class="fa fa-plus" aria-hidden="true"></i>
                     </button>
