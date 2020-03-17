@@ -79,6 +79,25 @@ async function editCartItem(item, newAmount) {
 
 }
 
+/**
+ * Удаляет товар из корзины
+ * @param {Object} item  
+ */
+async function deleteCartItem(item) {
+    let registered = getCookie('is_logged_in')
+
+    if (registered !== undefined) {
+        await deleteDBCartItem(item)
+        await updateLocalCart()
+    } else {
+        deleteLocalCartItem(item)
+    }
+    document.dispatchEvent(new CustomEvent("cartChanged", {
+        detail: { action: "item changed" }
+    }))
+
+}
+
 async function mergeCarts() {
     let cart = getLocalCart()
     if (cart !== undefined) {

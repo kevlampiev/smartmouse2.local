@@ -74,7 +74,7 @@ class CartModel
         $sql = 'CALL edit_cart_item(?,?,?)';
         $response=DBConnService::execQuery(
             $sql,
-            [$_SESSION['login'], $item['id'], $item['amount']]
+            [$this->login, $item['id'], $item['amount']]
         );
         if ($response['status']=="Ok") {
             foreach($this->goodsSet as $good) {
@@ -83,9 +83,36 @@ class CartModel
                     $good['amount']=$item['amount'];
                 }
             }
-            if (!$fount) {
+            if (!$found) {
                 $this->goodsSet[]=$item;
             }
+        }
+        return $response;
+    }
+
+    public function removeFromCart(array $item):array {
+        if ($this->goodsSet == null) {
+            return ['error' => 'user is not defined'];
+        }
+        //проверка а есть ли такой товар
+        $sql = "SELECT * FROM goods WHERE id=?";
+        $res = DBConnService::selectRowsSet($sql, [$item['id']]);
+        if ($res==[]) {
+            return ['error' => "A good with id={$item['id']} doesn't exist"];
+        }
+        $sql = 'DELETE FROM cart WHERE user=? and good_id=?';
+        $response=DBConnService::execQuery(
+            $sql,
+            [$this->login, $item['id']]
+        );
+        if ($response['status']=="Ok") {
+            $newCart=[];
+            foreach ($this->goodsSet as $good) {
+                if ($good['id']!=$item['id']) {
+                    $newCart[]=$good;
+                }
+            }
+            $this->goodsSet=$newCart;
         }
         return $response;
     }
@@ -116,6 +143,9 @@ class CartModel
             case 'editCartItem':
                 $result = $this->editCartItem($item);
                 break;
+            case 'removeFromCart': 
+                $result=$this->removeFromCart($item); 
+                break;   
             default:
                 $result=['error' => "Operation '$action' is not defined ... "];
         }     

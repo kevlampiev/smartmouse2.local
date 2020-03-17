@@ -61,3 +61,15 @@ function editLocalCartItem(item) {
     }
     saveLocalCart(cart)
 }
+
+function deleteLocalCartItem(item) {
+    let cart = getLocalCart()
+    if (cart !== undefined) {
+        index=cart.indexOf(item)
+        if (index!=undefined) {cart.splice(index,1)}
+    } else {
+        //если не было корзины - заводим
+        cart = []
+    }
+    saveLocalCart(cart)
+}

@@ -21,7 +21,7 @@ let cartItem = {
                         @click="$parent.addToCart(cartItem,cartItem.amount-1)">
                         <i class="fa fa-minus" aria-hidden="true"></i>
                     </button>
-                    <button class="cartItem__minusBtn" @click="$parent.deleteFromCart(cartItem)">
+                    <button class="cartItem__minusBtn" @click="$parent.removeFromCart(cartItem)">
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                     </button>
                     <p class="cartItem__totalSum">
@@ -73,8 +73,8 @@ let cart = {
      * Удаляет товар из корзины. Совсем
      * @param {CartItem} good
      */
-    deleteFromCart(good) {
-      console.log("Not relized yet");
+    async removeFromCart(good) {
+      await deleteCartItem(good)
     },
 
     /**

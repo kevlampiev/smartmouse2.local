@@ -57,3 +57,15 @@ async function editDBCartItem(item) {
   });
   return result;
 }
+
+/**
+ * Удаляет позицию в козине. Совсем
+ * @param {CartItem} item
+ */
+async function deleteDBCartItem(item) {
+  let result = await postJson(dbCardUrl, {
+    action: "removeFromCart",
+    item: item
+  });
+  return result;
+}

@@ -67,9 +67,9 @@ final class DBConnService
         try {
             $stmt = self::getConnection()->prepare($sql);
             $stmt->execute($params);
-            $result = ['status', 'Ok'];
+            $result = ['status'=> 'Ok'];
         } catch (PDOException $e) {
-            $result = ['status', 'Error: ' . $e->getMessage()];
+            $result = ['status'=> 'Error: ' . $e->getMessage()];
         }
         return $result;
     }
