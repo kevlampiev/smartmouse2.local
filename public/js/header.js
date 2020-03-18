@@ -67,6 +67,7 @@ let header = new Vue({
     this.getData();
   },
   components: {
-    cart: cart
+    cart: cart,
+    order: order
   }
 });

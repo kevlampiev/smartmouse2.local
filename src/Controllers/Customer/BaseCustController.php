@@ -4,7 +4,6 @@ namespace Smarthouse\Controllers\Customer;
 
 use Smarthouse\Models\CategoriesModel;
 use Smarthouse\Models\CustomerModel;
-use Smarthouse\Services\DBConnService;
 
 class BaseCustController
 {

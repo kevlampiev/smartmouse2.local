@@ -50,7 +50,7 @@ let regForm = new Vue({
       }
     },
     quitPage() {
-      document.location.href = "/index.php"
+      document.location.href = "/"
     }
   }
 });

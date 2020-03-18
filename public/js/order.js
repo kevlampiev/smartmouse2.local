@@ -1,4 +1,4 @@
-let cartItem = {
+let orderItem = {
   props: {
     cartItem: Object,
     index: Number
@@ -6,7 +6,7 @@ let cartItem = {
   data() {
     return {
       img_url: "/img/goods/"
-    };
+    }
   },
   template: `<div class="cartItem">
     
@@ -29,10 +29,7 @@ let cartItem = {
                 </div>`
 };
 
-let cart = {
-  props: {
-    isvisiblecart: Boolean
-  },
+let order = {
   data() {
     return {
       cartItems: [],
@@ -45,10 +42,6 @@ let cart = {
       this.cartItems = getLocalCart();
     },
 
-    makeOrder() {
-      document.location.href='/make_order';
-    },
-
     /**
      *
      * @param {Number} id Поиск товара в корзине по id товара
@@ -56,35 +49,13 @@ let cart = {
     getCartItem(id) {
       return this.cartItems.find((el, index) => el.id == id);
     },
+  },
 
     /**
      * Устанавливаем в корзине новое количество товара или добавляем новый
      * @param {Good} good товар который доавляем
      * @param {Number} amount количество
      */
-    async addToCart(good, amount = null) {
-      if (amount === null) {
-        amount = 1;
-      }
-      await editCartItem(good, amount);
-    },
-
-    /**
-     * Удаляет товар из корзины. Совсем
-     * @param {CartItem} good
-     */
-    async removeFromCart(good) {
-      await deleteCartItem(good);
-    },
-
-    /**
-     * Удаляет все товары из корзины у которых количество == 0
-     */
-    compressCart() {
-      this.cartItems = this.cartItems.filter(el => el.quantity != 0);
-    }
-  },
-
   computed: {
     cartSum: function() {
       let res = 0;
@@ -105,12 +76,9 @@ let cart = {
 
   mounted() {
     this.getData();
-    //setInterval(this.getData, 500)
-    document.addEventListener("cartChanged", this.getData);
-    document.addEventListener("storage", this.getData);
   },
 
-  template: `<div class="basketWindow" v-if="isvisiblecart" ref="cart">
+  template: `<div class="basketWindow" ref="order">
                     <div class="basketWindow__refSquare">
 
                     </div>
@@ -130,6 +98,6 @@ let cart = {
                 </div>`,
 
   components: {
-    "cart-item": cartItem
+    "cart-item": orderItem
   }
 };

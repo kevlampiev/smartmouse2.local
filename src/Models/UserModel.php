@@ -221,7 +221,7 @@ class UserModel
             $this->name,
             $this->phone,
             $this->email,
-            $this->address,
+            $this->adress,
             $this->description
         );
         DBConnService::execQuery($sql, $params);
