@@ -19,7 +19,7 @@ class TokenService
     {
         return [
             'token_seria' => self::newTokenUnit(),
-            'roken_number' => self::newTokenUnit()
+            'token_number' => self::newTokenUnit()
         ];
     }
 

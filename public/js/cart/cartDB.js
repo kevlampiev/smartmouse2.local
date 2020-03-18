@@ -1,4 +1,4 @@
-let dbCardUrl = "/cart.php";
+let dbCardUrl = "/cart_operations";
 
 /**
  * Возвращает содержимое корзины в виде массива item'ов
@@ -53,6 +53,18 @@ async function addToDBCartItem(item) {
 async function editDBCartItem(item) {
   let result = await postJson(dbCardUrl, {
     action: "editCartItem",
+    item: item
+  });
+  return result;
+}
+
+/**
+ * Удаляет позицию в козине. Совсем
+ * @param {CartItem} item
+ */
+async function deleteDBCartItem(item) {
+  let result = await postJson(dbCardUrl, {
+    action: "removeFromCart",
     item: item
   });
   return result;

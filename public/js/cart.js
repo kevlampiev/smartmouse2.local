@@ -12,7 +12,7 @@ let cartItem = {
     
                     <img class="cartItem__img" :src="img_url+cartItem.img" alt="Изображение">
                     <p class="cartItem__name"> {{cartItem.name}} </p>
-                    <p class="cartItem__price"> {{cartItem.price.toFixed(2)}}</p>
+                    <p class="cartItem__price"> {{parseFloat(cartItem.price).toFixed(2)}}</p>
                     <button class="cartItem__plusBtn" @click="$parent.addToCart(cartItem,cartItem.amount+1)">
                         <i class="fa fa-plus" aria-hidden="true"></i>
                     </button>
@@ -21,7 +21,7 @@ let cartItem = {
                         @click="$parent.addToCart(cartItem,cartItem.amount-1)">
                         <i class="fa fa-minus" aria-hidden="true"></i>
                     </button>
-                    <button class="cartItem__minusBtn" @click="$parent.deleteFromCart(cartItem)">
+                    <button class="cartItem__minusBtn" @click="$parent.removeFromCart(cartItem)">
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                     </button>
                     <p class="cartItem__totalSum">
@@ -36,7 +36,7 @@ let cart = {
   data() {
     return {
       cartItems: [],
-      url: "/api/cart"
+      url: "/cart_operations"
     };
   },
 
@@ -73,8 +73,8 @@ let cart = {
      * Удаляет товар из корзины. Совсем
      * @param {CartItem} good
      */
-    deleteFromCart(good) {
-      console.log("Not relized yet");
+    async removeFromCart(good) {
+      await deleteCartItem(good);
     },
 
     /**
@@ -97,7 +97,7 @@ let cart = {
     cartAmount: function() {
       let res = 0;
       this.cartItems.forEach(el => {
-        res += el.amount;
+        res += parseInt(el.amount);
       });
       return res;
     }
