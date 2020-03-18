@@ -74,7 +74,7 @@ let cart = {
      * @param {CartItem} good
      */
     async removeFromCart(good) {
-      await deleteCartItem(good)
+      await deleteCartItem(good);
     },
 
     /**
@@ -97,7 +97,7 @@ let cart = {
     cartAmount: function() {
       let res = 0;
       this.cartItems.forEach(el => {
-        res += el.amount;
+        res += parseInt(el.amount);
       });
       return res;
     }
