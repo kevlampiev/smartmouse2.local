@@ -24,6 +24,9 @@ function saveLocalCart(cart) {
 
 function destroyLocalCard() {
     localStorage.removeItem('cart')
+    document.dispatchEvent(new CustomEvent("cartChanged", {
+        detail: { action: "item changed" }
+    }))
     return []
 }
 

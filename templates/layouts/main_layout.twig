@@ -49,7 +49,7 @@
 						</li>
 
 						<li v-if="registered">
-							<a class="userMenu__item" href="/userlogout">log out</a>
+							<a class="userMenu__item" href="/userlogout" onclick="destroyLocalCard()">log out</a>
 						</li>
 						<template v-else>
 							<li>
