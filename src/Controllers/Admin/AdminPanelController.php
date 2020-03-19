@@ -2,13 +2,15 @@
 
 namespace Smarthouse\Controllers\Admin;
 
-use Smarthouse\Models\CategoriesModel;
-use Smarthouse\Models\UserModel;
-use Smarthouse\Services\DBConnService;
-use Smarthouse\Services\TwigService;
 
-class AdminPanelController extends BaseAdminController
+use Smarthouse\Models\CartModel;
+use Smarthouse\Services\TwigService;
+use Symfony\Component\Routing\Annotation\Route;
+
+class AdminPanelController
 {
+
+
     /**
      * @Route("/admin", name="admin")
      */
@@ -24,8 +26,7 @@ class AdminPanelController extends BaseAdminController
 
     public function showView(): string
     {
-        $twig = TwigService::getTwig();
-        return $twig->render(
+        return TwigService::getTwig()->render(
             'layouts/admin_layout.twig',
             []
         );
