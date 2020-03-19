@@ -7,7 +7,7 @@
 	<script src="/js/order.js" defer></script>
 
 	<div id="order_details">
-		<form>	
+
 			{% verbatim %}
 					<div class="good_list">
 						
@@ -59,12 +59,15 @@
 					</td>
 					<td>
 						<p v-if="deliveryType=='pickup'">
-							Точка самовывозв тут: 111
+							You can pick up your order at<br> 
+							16-3 Geminy, Heeze, The Netherlands<br>
+							from 9:00 till 18:00<br>
+							<a href="/contacts" class="userMenu__item">Click here for more information... </a>
+
 						</p>
 						<p v-else>
 							<input name="postcode" type="number" placeholder="Postcode" class="contact_input"><br>
-							<input name="region" type="text" placeholder="Region" class="contact_input"><br>
-							<input name="city" type="text" placeholder="City/town" class="contact_input"><br>
+							<input name="city" type="text" placeholder="Region, City/town" class="contact_input"><br>
 							<input name="street" type="text" placeholder="Street, house, flat" class="contact_input"><br>
 						</p>
 					</td>													
@@ -92,10 +95,10 @@
 				<input name="phone_input" type="text" placeholder="+7(___)___-____" class="contact_input"><br>
 
 			{% endif %}
-
-			<button></button>
-			<button></button>
-		</form>
+			<div class="orderNav">
+				<button class="orderBtn orangeStyled">Make order</button>
+				<button class="orderBtn orangeStyled">Cancel</button>
+			</div>	
 	</div>
 
 
