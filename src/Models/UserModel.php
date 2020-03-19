@@ -62,6 +62,10 @@ class UserModel
         return $this->description;
     }
 
+    public function getIsLogged(): bool {
+        return $this->isLogged;
+    }
+
 
     /**
      * Вспомогательные функции - утилиты

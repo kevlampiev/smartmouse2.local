@@ -1,6 +1,7 @@
 let header = new Vue({
   el: ".header",
   // delimiters: ["${", "}"],
+  // el: "body",
   data: {
     registered: false,
     name: "guest",
@@ -68,7 +69,6 @@ let header = new Vue({
     this.getData();
   },
   components: {
-    cart: cart,
-    order_comp: order
+    cart: cart
   }
 });

@@ -1,0 +1,16 @@
+.contact_input {
+  color: maroon;
+  margin-bottom: 10px;
+  min-height: 20px;
+  border-radius: 7px;
+  border: none;
+  border: 1px solid #bbb;
+  padding: 5px 15px;
+  width: 100%;
+}
+table {
+  width: 100%;
+}
+td {
+  padding-right: 15px;
+}
