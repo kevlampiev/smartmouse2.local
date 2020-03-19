@@ -27,7 +27,7 @@ class AdminPanelController
     public function showView(): string
     {
         return TwigService::getTwig()->render(
-            'layouts/admin_layout.twig',
+            'admin/admin_main.twig',
             []
         );
     }
