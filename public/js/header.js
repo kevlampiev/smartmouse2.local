@@ -1,6 +1,6 @@
 let header = new Vue({
   el: ".header",
-  delimiters: ["${", "}"],
+  // delimiters: ["${", "}"],
   data: {
     registered: false,
     name: "guest",
@@ -10,7 +10,8 @@ let header = new Vue({
     login: "",
     password: "",
     rememberMe: true,
-    isVisibleCart: false
+    isVisibleCart: false,
+    cartBtnAvailable: true
   },
   methods: {
     startLogin() {
@@ -68,6 +69,6 @@ let header = new Vue({
   },
   components: {
     cart: cart,
-    order: order
+    order_comp: order
   }
 });

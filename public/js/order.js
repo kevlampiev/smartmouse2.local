@@ -6,7 +6,7 @@ let orderItem = {
   data() {
     return {
       img_url: "/img/goods/"
-    }
+    };
   },
   template: `<div class="cartItem">
     
@@ -48,14 +48,14 @@ let order = {
      */
     getCartItem(id) {
       return this.cartItems.find((el, index) => el.id == id);
-    },
+    }
   },
 
-    /**
-     * Устанавливаем в корзине новое количество товара или добавляем новый
-     * @param {Good} good товар который доавляем
-     * @param {Number} amount количество
-     */
+  /**
+   * Устанавливаем в корзине новое количество товара или добавляем новый
+   * @param {Good} good товар который доавляем
+   * @param {Number} amount количество
+   */
   computed: {
     cartSum: function() {
       let res = 0;
@@ -85,7 +85,7 @@ let order = {
                     <h2 class="basketWindow__header"> shopping list </h2>
                     <div v-if="cartAmount===0" class="emptyBasket">Basket is empty</div>
                     <div class="basketWindow__itemContainer" >
-                      <cart-item v-for="(cartItem,index) in cartItems" :cartItem="cartItem" :key="cartItem.id" :index="index"> </cart-item> 
+                      <orderItem v-for="(cartItem,index) in cartItems" :cartItem="cartItem" :key="cartItem.id" :index="index"> </orderItem> 
                     </div>
                     <div class="basketWindow__footer">
                         <div> Total: {{cartAmount}} items for {{cartSum.toFixed(2)}} $ </div>
@@ -98,6 +98,6 @@ let order = {
                 </div>`,
 
   components: {
-    "cart-item": orderItem
+    orderItem: orderItem
   }
 };

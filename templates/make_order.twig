@@ -4,36 +4,49 @@
 {% endblock %}
 {% block content %}
 	<form>
-		{% verbatim %}
-			<div> 
-				<template v-for="item in cartItems">
-				 <img v-for="item.img">
-				 <p> {{item.name}}</p>
-				 <p> {{item.amount}}</p>
-				 <p> {{item.price}}</p>
-				 <p> {{item.amount * item.price}}</p>
-				 <p> {{item.currency}}</p>
-				</template>
-			</div>
-		{% endverbatim %}  
+		{# {% verbatim %}
+															<div> 
+																<template v-for="item in cartItems">
+																 <img v-for="item.img">
+																 <p> {{item.name}}</p>
+																 <p> {{item.amount}}</p>
+																 <p> {{item.price}}</p>
+																 <p> {{item.amount * item.price}}</p>
+																 <p> {{item.currency}}</p>
+																</template>
+															</div>
+														{% endverbatim %}   #}
 
+		<ordercomp/>
 		{% if not userInfo.isLogged %}
-		  Имя
-		  Телефон для связи
+			Имя
+																				  Телефон для связи
 		{% endif %}
-		<h4> Select delivery type </h4>
-		<p><input name="delivery_type" type="radio" value="pickup"> pickup </p>
-		<p><input name="delivery_type" type="radio" value="courier"> delivery by courier</p>
-		<p><input name="delivery_type" type="radio" value="mail" checked> delivery by mail</p>
+		<h4>
+			Select delivery type
+		</h4>
+		<p><input name="delivery_type" type="radio" value="pickup">
+			pickup
+		</p>
+		<p><input name="delivery_type" type="radio" value="courier">
+			delivery by courier</p>
+		<p><input name="delivery_type" type="radio" value="mail" checked>
+			delivery by mail</p>
 
 		или поле Адреса доставки
-		или карта с указанием точек самовывоза
-		
-		<h4> select the payment type </h4>
-		<p><input name="paymnt_type" type="radio" value="cash"> cash </p>
-		<p><input name="paymnt_type" type="radio" value="card"> credit card</p>
-		
-		<button> </button>
-		<button> </button>
+														или карта с указанием точек самовывоза
+
+		<h4>
+			select the payment type
+		</h4>
+		<p><input name="paymnt_type" type="radio" value="cash">
+			cash
+		</p>
+		<p><input name="paymnt_type" type="radio" value="card">
+			credit card</p>
+
+		<button></button>
+		<button></button>
 	</form>
+
 {% endblock %}
