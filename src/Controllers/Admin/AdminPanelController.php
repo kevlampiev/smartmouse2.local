@@ -7,7 +7,7 @@ use Smarthouse\Models\CartModel;
 use Smarthouse\Services\TwigService;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminPanelController
+class AdminPanelController extends BaseAdminController
 {
 
 
@@ -16,12 +16,7 @@ class AdminPanelController
      */
     public function __invoke(): string
     {
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            return [];
-        } else {
-            return $this->showView();
-        }
+        return parent::__invoke();
     }
 
     public function showView(): string
