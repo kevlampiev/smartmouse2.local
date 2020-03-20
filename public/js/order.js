@@ -29,6 +29,7 @@ let order = new Vue({
     getCartItem(id) {
       return this.cartItems.find((el, index) => el.id == id);
     },
+
     /**
      * Возвращает путь к странице товара
      * @param {object} item
@@ -62,6 +63,37 @@ let order = new Vue({
      */
     leaveThePage() {
       document.location.href = "/";
+    },
+
+    async postOrder() {
+      let requestBody = {
+        cartItems: this.cartItems,
+        deliveryType: this.deliveryType,
+        paymentType: this.paymentType,
+        deliveryAdress:
+          this.deliveryType != "puckup"
+            ? this.deliveryAdress.ZIPCode +
+              ", " +
+              this.deliveryAdress.city +
+              ", " +
+              this.deliveryAdress.details
+            : "",
+        contactName: this.contactName,
+        contactPhone: this.contactPhone
+      };
+      let result = await postJson("/make_order", requestBody);
+      if ("error" in result) {
+        alert(result.error);
+      } else {
+        destroyLocalCard();
+        document.dispatchEvent(
+          new CustomEvent("cartChanged", {
+            detail: { action: "cart cleared" }
+          })
+        );
+        alert("Order has been registered");
+        this.leaveThePage();
+      }
     }
   },
 

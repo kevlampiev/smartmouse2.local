@@ -28,7 +28,8 @@ class CustomerController extends BaseCustController
         return $twig->render(
             'user_acc_panel.twig',
             [
-                'userInfo' => $user
+                'userInfo' => $user,
+                'userOrders' => $user->getOrdersList()
             ]
         );
     }

@@ -162,7 +162,9 @@ endblock %} {% block content %}
     /><br />
   </div>
   <div class="orderNav">
-    <button class="orderBtn orangeStyled">Make order</button>
+    <button class="orderBtn orangeStyled" @click="postOrder()">
+      Make order
+    </button>
     <button class="orderBtn orangeStyled" @click="leaveThePage()">
       Cancel
     </button>

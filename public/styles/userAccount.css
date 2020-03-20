@@ -124,3 +124,19 @@ input[type="password"] {
   background-color: #ddd;
   padding: 5px 15px;
 }
+
+.ordersTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.orders__header {
+  font-weight: 700;
+  border-bottom: 3px solid #ccc !important;
+  outline: 1px solid #fff;
+}
+
+.ordersTable td {
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
