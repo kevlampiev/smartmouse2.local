@@ -43,6 +43,6 @@ class UserRegisterController
         $user = new CustomerModel();
         $user->registerNewUser();
         $twig = TwigService::getTwig();
-        return $twig->render('registerUser.twig', ['document' => 'Smarthouse registration', 'userInfo' => $user, 'errors' => "", 'displayErr' => false]);
+        return $twig->render('register_user.twig', ['document' => 'Smarthouse registration', 'userInfo' => $user, 'errors' => "", 'displayErr' => false]);
     }
 }

@@ -15,14 +15,19 @@
 		<script src="/js/cart/cartLocal.js" defer></script>
 		<script src="/js/cart/cartDB.js" defer></script>
 		<script src="/js/cart/cartOperations.js" defer></script>
+
 		<script src="/js/cart.js" defer></script>
 		<script src="/js/header.js" defer></script>
 
 
-		<title>{% block tittle %} {% endblock %}</title>
+		<title>
+			{% block tittle %}{% endblock %}
+		</title>
 	</head>
 
 	<body>
+			
+	
 		<div class="container">
 			<div class="header">
 				<div class="header__linksBand orangeStyled">
@@ -31,8 +36,7 @@
 						<p>Atomic</p>
 
 					</div>
-					<div
-						class="userNameDspl">
+					<div class="userNameDspl">
 						{{ userInfo.getName() }}
 					</div>
 
@@ -99,27 +103,27 @@
 				</div>
 
 				{% include 'components/passwordFromComp.twig'%}
-
+				
 			</div>
 
-			{% block content %} {% endblock %}
+			{% block content %}{% endblock %}
 
 			<div class="footer">
 				<div class="footer__additional yellowStyled bottomYellowBordered">
 					<article>
 						<h3>SUSPENDISSE SED</h3>
 						<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Natus, quibusdam. Sequi voluptatem
-																																																																																																		                        sapiente odio explicabo quam consequuntur eaque quo suscipit.</p>
+																																																																																																									                        sapiente odio explicabo quam consequuntur eaque quo suscipit.</p>
 					</article>
 					<article>
 						<h3>SUSPENDISSE SED</h3>
 						<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Natus, quibusdam. Sequi voluptatem
-																																																																																																		                        sapiente odio explicabo quam consequuntur eaque quo suscipit.</p>
+																																																																																																									                        sapiente odio explicabo quam consequuntur eaque quo suscipit.</p>
 					</article>
 					<article>
 						<h3>SUSPENDISSE SED</h3>
 						<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Natus, quibusdam. Sequi voluptatem
-																																																																																																		                        sapiente odio explicabo quam consequuntur eaque quo suscipit.</p>
+																																																																																																									                        sapiente odio explicabo quam consequuntur eaque quo suscipit.</p>
 					</article>
 
 				</div>
@@ -176,6 +180,7 @@
 				</div>
 
 			</div>
-		</body>
+						{% include 'components/orderComp.twig'%}
+		</div>
 	</body>
 </html>

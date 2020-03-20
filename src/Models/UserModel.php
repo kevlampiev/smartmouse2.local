@@ -62,6 +62,10 @@ class UserModel
         return $this->description;
     }
 
+    public function getIsLogged(): bool {
+        return $this->isLogged;
+    }
+
 
     /**
      * Вспомогательные функции - утилиты
@@ -221,7 +225,7 @@ class UserModel
             $this->name,
             $this->phone,
             $this->email,
-            $this->address,
+            $this->adress,
             $this->description
         );
         DBConnService::execQuery($sql, $params);

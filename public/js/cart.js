@@ -45,8 +45,8 @@ let cart = {
       this.cartItems = getLocalCart();
     },
 
-    sendCart() {
-      console.log("Not relized yet");
+    makeOrder() {
+      document.location.href = "/make_order";
     },
 
     /**
@@ -123,7 +123,7 @@ let cart = {
                         <div> Total: {{cartAmount}} items for {{cartSum.toFixed(2)}} $ </div>
                         <div class="basket__controls">
                             <button class="cartButton orangeStyled" @click="$parent.isVisibleCart=false">Close</button>
-                            <button class="cartButton orangeStyled" @click="sendCart()">Make order</button>
+                            <button v-if="cartAmount>0" class="cartButton orangeStyled" @click="makeOrder()">Make order</button>
                             <button class="cartButton orangeStyled" @click="compressCart()">Recalc</button>
                         </div>
                     </div>

@@ -1,0 +1,175 @@
+{% extends 'layouts/main_layout.twig' %} {% block title %} CreateOrder {%
+endblock %} {% block content %}
+<link rel="stylesheet" href="/styles/order.css" />
+<script src="/js/order.js" defer></script>
+
+<div id="order_details">
+  {% verbatim %}
+  <div class="good_list">
+    <h3 class="grayTitle">SHOPING LIST</h3>
+    <div class="basketWindow__itemContainer">
+      <div
+        class="cartItem"
+        v-for="(cartItem,index) in cartItems"
+        :cartItem="cartItem"
+        :key="cartItem.id"
+        :index="index"
+      >
+        <a v-bind:href="getPathToGood(cartItem)">
+          <img
+            class="cartItem__img"
+            :src="img_url+cartItem.img"
+            alt="Изображение"
+          />
+        </a>
+        <p class="cartItem__name">{{ cartItem.name }}</p>
+        <p class="cartItem__price">
+          {{ parseFloat(cartItem.price).toFixed(2) }}
+        </p>
+        <button
+          class="cartItem__plusBtn"
+          @click="addToCart(cartItem,cartItem.amount+1)"
+        >
+          <i class="fa fa-plus" aria-hidden="true"></i>
+        </button>
+        <input
+          class="cartItem__quantity"
+          type="number"
+          min="0"
+          max="99"
+          v-model.lazy="cartItem.amount"
+          @change="addToCart(cartItem,cartItem.amount)"
+        />
+        <button
+          class="cartItem__minusBtn"
+          @click="addToCart(cartItem,cartItem.amount-1)"
+        >
+          <i class="fa fa-minus" aria-hidden="true"></i>
+        </button>
+        <button class="cartItem__minusBtn" @click="removeFromCart(cartItem)">
+          <i class="fa fa-trash-o" aria-hidden="true"></i>
+        </button>
+        <p class="cartItem__totalSum">
+          {{ (Number(cartItem.price) * Number(cartItem.amount)).toFixed(2) }}
+        </p>
+      </div>
+    </div>
+
+    <div class="basketWindow__footer">
+      <div>Total: {{ cartAmount }} items for {{ cartSum.toFixed(2) }} $</div>
+    </div>
+  </div>
+
+  <h3 class="grayTitle">
+    SELECT DELIVERY TYPE
+  </h3>
+  <table>
+    <tr>
+      <td>
+        <p>
+          <input
+            name="delivery_type"
+            type="radio"
+            value="pickup"
+            v-model="deliveryType"
+          />
+          pickup
+        </p>
+        <p>
+          <input
+            name="delivery_type"
+            type="radio"
+            value="courier"
+            v-model="deliveryType"
+          />
+          delivery by courier
+        </p>
+        <p>
+          <input
+            name="delivery_type"
+            type="radio"
+            value="mail"
+            v-model="deliveryType"
+          />
+          delivery by mail
+        </p>
+      </td>
+      <td>
+        <p v-if="deliveryType=='pickup'">
+          You can pick up your order at<br />
+          16-3 Geminy, Heeze, The Netherlands<br />
+          from 9:00 till 18:00<br />
+          <a href="/contacts" class="userMenu__item"
+            >Click here for more information...
+          </a>
+        </p>
+        <p v-else>
+          <input
+            name="postcode"
+            type="number"
+            placeholder="000000"
+            class="contact_input"
+            v-model="deliveryAdress.ZIPCode"
+          /><br />
+          <input
+            name="city"
+            type="text"
+            placeholder="Region, City/town"
+            class="contact_input"
+            v-model="deliveryAdress.city"
+          /><br />
+          <input
+            name="street"
+            type="text"
+            placeholder="Street, house, flat"
+            class="contact_input"
+            v-model="deliveryAdress.details"
+          /><br />
+        </p>
+      </td>
+    </tr>
+  </table>
+
+  <h3 class="grayTitle">
+    SELECT PAYMENT TYPE
+  </h3>
+  <p>
+    <input name="paymnt_type" type="radio" value="cash" v-model="paymentType" />
+    cash
+  </p>
+  <p>
+    <input name="paymnt_type" type="radio" value="card" v-model="paymentType" />
+    credit card
+  </p>
+
+  <div v-if="!userIsLogged">
+    <h3 class="grayTitle">CONTACT INFORMATION</h3>
+    <label for="name_input"> Your name </label><br />
+    <input
+      name="name_input"
+      type="text"
+      placeholder="John Smith"
+      class="contact_input"
+      v-model="contactName"
+    /><br />
+    <label for="phone_input"> Phone number </label><br />
+    <input
+      name="phone_input"
+      type="text"
+      placeholder="+7(___)___-____"
+      class="contact_input"
+      v-model="contactPhone"
+    /><br />
+  </div>
+  <div class="orderNav">
+    <button class="orderBtn orangeStyled" @click="postOrder()">
+      Make order
+    </button>
+    <button class="orderBtn orangeStyled" @click="leaveThePage()">
+      Cancel
+    </button>
+  </div>
+  {% endverbatim %}
+</div>
+
+{% endblock %}

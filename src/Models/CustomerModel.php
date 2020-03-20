@@ -3,12 +3,14 @@
 
 namespace Smarthouse\Models;
 
+use Smarthouse\Services\DBConnService;
 use Smarthouse\Services\TokenService;
 
 //Класс-наследник, который может, кроме всего прочего авторизоваться из cookie по токену
 
 class CustomerModel extends UserModel
 {
+
 
     public function __construct()
     {
@@ -19,6 +21,7 @@ class CustomerModel extends UserModel
     public function init()
     {
         if (parent::init()) {
+
             return true;
         }
         //Два случая авторизации не прошло. Опознанание по токену 
@@ -31,13 +34,13 @@ class CustomerModel extends UserModel
             TokenService::changeTokenNumber($token);
 
             $this->fillData($row);
+
             $this->grantAccess();
             return true;
         }
         $this->flushData();
         return false;
     }
-
 
     public function logIn(string $login, string $password, ?string $rememberMe): ?array
     {
@@ -53,5 +56,12 @@ class CustomerModel extends UserModel
     {
         TokenService::destroyToken();
         parent::logout();
+    }
+
+    public function getOrdersList(): array
+    {
+        $sql = 'SELECT * from v_orders WHERE login=?';
+        $lo = $this->getLogin();
+        return DBConnService::selectRowsSet($sql, [$this->getLogin()]);
     }
 }
