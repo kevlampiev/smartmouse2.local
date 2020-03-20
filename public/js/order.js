@@ -1,49 +1,25 @@
-// let orderItem = {
-//   props: {
-//     cartItem: Object,
-//     index: Number
-//   },
-//   data() {
-//     return {
-//       img_url: "/img/goods/"
-//     };
-//   },
-//   template: `<div class="cartItem" style="backgroundcolor: red; position: static;">
-    
-//                     <img class="cartItem__img" :src="img_url+cartItem.img" alt="Изображение">
-//                     <p class="cartItem__name"> {{cartItem.name}} </p>
-//                     <p class="cartItem__price"> {{parseFloat(cartItem.price).toFixed(2)}}</p>
-//                     <button class="cartItem__plusBtn" @click="$parent.addToCart(cartItem,cartItem.amount+1)">
-//                         <i class="fa fa-plus" aria-hidden="true"></i>
-//                     </button>
-//                     <input class="cartItem__quantity" type="number" min="0" max="99" v-model.lazy="cartItem.amount" @change="$parent.addToCart(cartItem,cartItem.amount)">
-//                     <button class="cartItem__minusBtn"
-//                         @click="$parent.addToCart(cartItem,cartItem.amount-1)">
-//                         <i class="fa fa-minus" aria-hidden="true"></i>
-//                     </button>
-//                     <button class="cartItem__minusBtn" @click="$parent.removeFromCart(cartItem)">
-//                         <i class="fa fa-trash-o" aria-hidden="true"></i>
-//                     </button>
-//                     <p class="cartItem__totalSum">
-//                         {{(Number(cartItem.price)*Number(cartItem.amount)).toFixed(2)}}</p>
-//                 </div>`
-// };
-
-
 let order = new Vue({
   el: "#order_details",
   data: {
-    
-      cartItems: [],
-      url: "/cart_operations",
-      img_url: "/img/goods/",
-      deliveryType: 'courier',
-      paymentType: 'cash'
+    cartItems: [],
+    url: "/cart_operations",
+    img_url: "img/goods/",
+    deliveryType: "courier",
+    paymentType: "cash",
+    userIsLogged: false,
+    deliveryAdress: {
+      ZIPCode: "",
+      city: "",
+      details: ""
+    },
+    contactName: "",
+    contactPhone: ""
   },
 
   methods: {
     getData() {
       this.cartItems = getLocalCart();
+      this.userIsLogged = getCookie("is_logged_in") === "true";
     },
 
     /**
@@ -52,14 +28,43 @@ let order = new Vue({
      */
     getCartItem(id) {
       return this.cartItems.find((el, index) => el.id == id);
+    },
+    /**
+     * Возвращает путь к странице товара
+     * @param {object} item
+     */
+    getPathToGood(item) {
+      return "/good/" + item.id;
+    },
+
+    /**
+     * Устанавливаем в корзине новое количество товара или добавляем новый
+     * @param {Good} good товар который доавляем
+     * @param {Number} amount количество
+     */
+    async addToCart(good, amount = null) {
+      if (amount === null) {
+        amount = 1;
+      }
+      await editCartItem(good, amount);
+    },
+
+    /**
+     * Удаляет товар из корзины. Совсем
+     * @param {CartItem} good
+     */
+    async removeFromCart(good) {
+      await deleteCartItem(good);
+    },
+
+    /**
+     * Покидает страницу заказа
+     */
+    leaveThePage() {
+      document.location.href = "/";
     }
   },
 
-  /**
-   * Устанавливаем в корзине новое количество товара или добавляем новый
-   * @param {Good} good товар который доавляем
-   * @param {Number} amount количество
-   */
   computed: {
     cartSum: function() {
       let res = 0;
@@ -80,8 +85,7 @@ let order = new Vue({
 
   mounted() {
     this.getData();
-  // },
-  // components: {
-  //   orderItem: orderItem
+    document.addEventListener("cartChanged", this.getData);
+    document.addEventListener("storage", this.getData);
   }
-})
+});
