@@ -62,7 +62,8 @@ class UserModel
         return $this->description;
     }
 
-    public function getIsLogged(): bool {
+    public function getIsLogged(): bool
+    {
         return $this->isLogged;
     }
 
@@ -110,6 +111,10 @@ class UserModel
         setcookie("is_logged_in", "false", time() - 7 * 24 * 3600);
     }
 
+    protected function alreadyLoged(): bool
+    {
+        return isset($_SESSION['login']);
+    }
 
     /**
      * Практически автологин
@@ -123,7 +128,7 @@ class UserModel
         }
 
 
-        if (isset($_SESSION['login'])) {
+        if ($this->alreadyLoged()) {
             //хороший случай, все уже в системе
             try {
                 $sql = "SELECT * FROM v_usr_cart_stats WHERE login=?";
