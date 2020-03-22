@@ -68,7 +68,6 @@ class AdminModel extends UserModel
 
         $sql = "UPDATE users SET last_login=CURRENT_TIMESTAMP() WHERE login=?";
         DBConnService::execQuery($sql, [$login]);
-
         $this->fillData($row);
         $this->grantAccess();
 
