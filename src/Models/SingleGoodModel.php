@@ -7,14 +7,14 @@ use Smarthouse\Services\DBConnService;
 
 class SingleGoodModel
 {
-    private $id;
-    private $category_id;
-    private $name;
-    private $img;
-    private $description;
+    protected $id;
+    protected $category_id;
+    protected $name;
+    protected $img;
+    protected $description;
     private $price;
     private $currency;
-    private $additionalImgs;
+    protected $additionalImgs;
 
     public function __construct(int $id)
     {

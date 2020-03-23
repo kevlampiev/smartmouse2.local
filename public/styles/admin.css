@@ -58,3 +58,14 @@ td {
   /* min-width: 150px; */
   display: flex;
 }
+
+.bigGoodImg {
+  height: 200px;
+  width:200px;
+  outline: 1px solid #ccc;
+}
+
+.goodImageContainer {
+  display: flex;
+  justify-content: space-around;
+}

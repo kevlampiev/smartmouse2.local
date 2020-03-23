@@ -7,17 +7,19 @@ use Smarthouse\Models\Admin\AdminPanelModel;
 use Smarthouse\Models\Admin\GoodsListModel;
 use Smarthouse\Services\TwigService;
 use Symfony\Component\Routing\Annotation\Route;
+use Smarthouse\Models\Admin\AdminGoodModel;
 
-class GoodsListController extends BaseAdminController
+class EditGoodController extends BaseAdminController
 {
-
+    private $params;
 
     /**
-     * @Route("/admin/goods", name="adminGoods")
+     * @Route("/admin/goodedit/{id}", name="adminGoodEdit")
      */
     public function __invoke(?array $parameters): string
     {
         // session_start();
+        $this->params=$parameters;
         return parent::__invoke($parameters);
     }
 
@@ -28,10 +30,12 @@ class GoodsListController extends BaseAdminController
 
     public function showView(): string
     {
-        $goods = new GoodsListModel();
+
+        $good=new AdminGoodModel($this->params['id']);
+
         return TwigService::getTwig()->render(
-            'admin/goods_list.twig',
-            ['goods' => $goods]
+            'admin/good_edit.twig',
+            ['good'=>$good]
         );
     }
 }

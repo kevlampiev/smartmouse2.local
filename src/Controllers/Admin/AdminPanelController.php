@@ -14,10 +14,10 @@ class AdminPanelController extends BaseAdminController
     /**
      * @Route("/admin", name="admin")
      */
-    public function __invoke(): string
+    public function __invoke(?array $parameters): string
     {
-        session_start();
-        return parent::__invoke();
+        // session_start();
+        return parent::__invoke($parameters);
     }
 
     public function postResponse(?array $params = []): string

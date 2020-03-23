@@ -1,0 +1,41 @@
+{% extends 'layouts/admin_layout.twig' %}
+{% block title %}
+	admin orders
+{% endblock %}
+{% block content %}
+	<div class="container-fluid">
+		<table>
+			<tr>
+				<td class="header_cell">#</td>
+				<td class="header_cell">Registered</td>
+				<td class="header_cell">Login</td>
+				<td class="header_cell">Delivery</td>
+				<td class="header_cell">Payment</td>
+				<td class="header_cell">Name</td>
+				<td class="header_cell">Phone</td>
+				<td class="header_cell">Amount</td>
+				<td class="header_cell">Summ</td>
+				<td class="header_cell">Currency</td>
+				<td class="header_cell"></td>
+			</tr>
+			
+			{% for order in orders.getOrdersList() %}
+				<tr>
+					<td>{{order.id}}</td>
+					<td>{{order.date_open}}</td>
+					<td>{{order.login}}</td>
+					<td>{{order.delivery}}</td>
+					<td>{{order.payment}}</td>
+					<td>{{order.contact_name}}</td>
+					<td>{{order.contact_phone}}</td>
+					<td>{{order.tot_amount}}</td>
+					<td>{{order.tot_price}}</td>
+					<td>{{order.currency}}</td>
+					<td>
+						<a href="/admin/orderdetails/{{order.id}}">Details</a>
+											</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+{% endblock %}
