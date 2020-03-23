@@ -42,8 +42,8 @@ class AdminModel extends UserModel
         if ($this->alreadyLoged()) {
             //хороший случай, все уже в системе
             try {
-                $sql = "SELECT * FROM users WHERE login=?";
-                $data = [$_SESSION['login']];
+                $sql = "SELECT * FROM users WHERE login=? AND user_role=?";
+                $data = [$_SESSION['login'], 'admin'];
                 $row = DBConnService::selectSingleRow($sql, $data);
                 if ($row == null || $row == []) {
                     $this->denyAccess();
