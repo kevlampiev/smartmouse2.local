@@ -4,26 +4,32 @@ namespace Smarthouse\Controllers\Admin;
 
 use Symfony\Component\Routing\Annotation\Route;
 use Smarthouse\Models\AdminModel;
+use Smarthouse\Services\TwigService;
 
 class AdminLoginController
 {
     /**
-     * @Route("/admin/login/{id}", name="adminlogin")
+     * @Route("/admin/login", name="adminlogin")
      */
 
     public function __invoke(): string
     {
-        //примитивная форма жизни
         $user = new AdminModel();
 
-        // $input = json_decode(file_get_contents("php://input"), true);
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            $log = $_POST['login'];
+            $pass = $_POST['password'];
+            $logintResult = $user->logIn($log, $pass, null);
 
-        $log = strip_tags((string) $_POST["login"]);
-        $pass = strip_tags((string) $_POST["password"]);
-
-        $response = $user->logIn($log, $pass, '');
-        return "header('/admin');";
-        // $_SERVER['HTTP_REFERER']
-        // header("Location:login.php");
+            if (array_key_exists('error', $logintResult)) {
+                $result = TwigService::getTwig()->render('admin/admin_login.twig', [$user]);
+            } else {
+                $result = "<html><head><META HTTP-EQUIV='Refresh' content='0; URL=/admin'></head>
+                <body></body></html>";
+            }
+        } else {
+            $result = TwigService::getTwig()->render('admin/admin_login.twig', [$user]);
+        }
+        return $result;
     }
 }

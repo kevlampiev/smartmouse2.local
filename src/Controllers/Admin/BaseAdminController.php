@@ -4,7 +4,7 @@ namespace Smarthouse\Controllers\Admin;
 
 
 use Smarthouse\Models\CartModel;
-use Smarthouse\Models\UserModel;
+use Smarthouse\Models\AdminModel;
 use Smarthouse\Services\TwigService;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -14,7 +14,8 @@ abstract class BaseAdminController
 
     public function __construct()
     {
-        $this->user=new UserModel();    
+        session_start();
+        $this->user = new AdminModel();
     }
 
     public function __invoke(): string
@@ -31,19 +32,14 @@ abstract class BaseAdminController
         }
     }
 
-    public function askPassword():string {
-        return TwigService::getTwig()->render('admin/admin_login.twig',[]);
-    }
-
-    public function postResponse(array $params=[]):string {
-        return '';
-    }
-
-    protected function showView(): string
+    public function askPassword(): string
     {
-        return TwigService::getTwig()->render(
-            'admin/admin_main.twig',
-            []
-        );
+        return "<html><head><META HTTP-EQUIV='Refresh' content='0; URL=/admin/login'></head>
+        <body></body></html>";
     }
+
+    abstract public function postResponse(?array $params = []): string;
+
+
+    abstract protected function showView(): string;
 }

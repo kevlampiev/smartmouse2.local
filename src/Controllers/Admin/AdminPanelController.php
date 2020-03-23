@@ -16,7 +16,13 @@ class AdminPanelController extends BaseAdminController
      */
     public function __invoke(): string
     {
+        session_start();
         return parent::__invoke();
+    }
+
+    public function postResponse(?array $params = []): string
+    {
+        return 'No presents for Christmass';
     }
 
     public function showView(): string
