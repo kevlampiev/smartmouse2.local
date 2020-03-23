@@ -1,15 +1,45 @@
 .centered-form {
-    padding:25px;
-    background-color: #eee;
-    width: 90vh;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 8px 8px 19px 5px rgba(0, 0, 0, 0.43);
+  padding: 25px;
+  background-color: #eee;
+  width: 90vh;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 8px 8px 19px 5px rgba(0, 0, 0, 0.43);
+}
+
+.dashboard-element {
+  padding: 15px;
+  box-shadow: 4px 4px 10px 2px rgba(150, 150, 150, 0.43);
+  height: 90vh;
+  color: #333;
 }
 
 .small-picture {
-    width: 75px;
-    height: 75px;
+  width: 75px;
+  height: 75px;
+}
+
+table {
+  border-collapse: collapse;
+  /* border-bottom: 1px solid gray; */
+  margin-bottom: 50px;
+}
+
+td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px dashed gray;
+}
+
+.header_cell {
+  font-weight: 700;
+  border-bottom: 1px solid gray;
+}
+
+.footer_cell {
+  font-weight: 700;
+  border-top: 1px solid gray;
+  border-bottom: none;
 }

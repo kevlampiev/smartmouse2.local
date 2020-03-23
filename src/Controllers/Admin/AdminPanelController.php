@@ -3,7 +3,7 @@
 namespace Smarthouse\Controllers\Admin;
 
 
-use Smarthouse\Models\CartModel;
+use Smarthouse\Models\Admin\AdminPanelModel;
 use Smarthouse\Services\TwigService;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -27,9 +27,10 @@ class AdminPanelController extends BaseAdminController
 
     public function showView(): string
     {
+        $admPanelData = new AdminPanelModel();
         return TwigService::getTwig()->render(
             'admin/admin_main.twig',
-            []
+            ['admPanelInfo' => $admPanelData]
         );
     }
 }
