@@ -43,3 +43,18 @@ td {
   border-top: 1px solid gray;
   border-bottom: none;
 }
+
+.icon_img {
+  height: 50px;
+  width: 50px;
+  outline: 1px dolig #eee;
+}
+
+.filter-control {
+  width: 80px !important;
+}
+
+.price_cell {
+  /* min-width: 150px; */
+  display: flex;
+}
