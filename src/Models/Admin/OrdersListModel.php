@@ -11,7 +11,7 @@ class OrdersListModel
 
     public function __construct()
     {
-        $sql = 'SELECT * FROM v_orders ORDER BY date_open DESC';
+        $sql = 'SELECT * FROM v_orders_with_stats ORDER BY date_open DESC';
         $this->ordersList = DBConnService::selectRowsSet($sql);
     }
 

@@ -1,0 +1,154 @@
+{% extends 'layouts/admin_layout.twig' %}
+{% block title %}
+	admin orders
+{% endblock %}
+{% block content %}
+	<div class="container-fluid">
+		<div class="col-md-4">
+			<h3>
+				General info</h3>
+			<div class="form-group">
+				<label for="id">Order No</label>
+				<input name="id" id="id" value="{{order.getId()}}" class="form-control" disabled="true">
+			</div>
+
+			<div class="form-group">
+				<label for="date_open">Date created</label>
+				<input name="date_open" id="date_open" value="{{order.getDateOpen()}}" class="form-control" disabled="true">
+			</div>
+
+			<div class="form-group">
+				<label for="login">User login (if registered)</label>
+				<input name="login" id="login" value="{{order.getLogin()}}" class="form-control" disabled="true">
+			</div>
+
+			<div class="form-group">
+				<label for="delivery">Delivery type</label>
+				<select size="1" name="delivery" value="{{order.getDelivery()}}" class="form-control">
+					{% for delivery in order.getDeliveriesList()  %}
+						<option value="{{delivery.id}}">{{delivery.name}}</option>
+					{% endfor %}
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label for="payment">Payment type</label>
+				<select size="1" name="payment" value="{{order.getPayment()}}" class="form-control">
+					{% for payment in order.getPaymentsList()  %}
+						<option value="{{payment.id}}">{{payment.name}}</option>
+					{% endfor %}
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label for="contact_name">Contact name</label>
+				<input name="contact_name" id="contact_name" value="{{order.getContactName() }}" class="form-control">
+			</div>
+
+			<div class="form-group">
+				<label for="contact_phone">Contact phone</label>
+				<input name="contact_phone" id="contact_phone" value="{{order.getContactPhone()}}" class="form-control">
+			</div>
+
+
+			<div class="form-group">
+				<label for="delivery_adress">Delivery adress</label>
+				<input name="delivery_adress" id="delivery_adress" value="{{order.getDeliveryAdress()}}" class="form-control">
+			</div>
+
+			<div class="form-group">
+				<label for="comment">Comments</label>
+				<textarea class="form-control" id="comment" name="comment" rows="3">{{order.getComment()}}</textarea>
+			</div>
+
+			<div class="form-group">
+				<button class="btn btn-default">
+					Save
+				</button>
+				<button class="btn btn-default">
+					Cancel
+				</button>
+			</div>
+
+		</div>
+		<div class="col-md-4">
+			<h3>Positions in order</h3>
+			<table>
+				<tr>
+					<td class="header_cell">Img</td>
+					<td class="header_cell">Title</td>
+					<td class="header_cell">Amount</td>
+					<td class="header_cell">Price</td>
+					<td class="header_cell">Currency</td>
+					<td class="header_cell"></td>
+				</tr>
+				{% for good in order.getGoodsList() %}
+					<tr>
+						<td>
+							<img src="/img/goods/{{good.img}}" class="icon_img">
+						</td>
+						<td>{{good.name}}</td>
+						<td>{{good.amount}}</td>
+						<td>{{good.price}}</td>
+						<td>{{good.currency}}</td>
+						<td>
+							<a href="/admin/goodedit/{{good.id}}">Edit</a>
+							<a href="#">Delete</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+		<div class="col-md-4">
+			<h3>Status history</h3>
+			<table>
+				<tr>
+					<td class="header_cell">Date changed</td>
+					<td class="header_cell">Status</td>
+					<td class="header_cell">Comment</td>
+				</tr>
+				{% for status in order.getHandleHistory() %}
+					<tr>
+						<td>{{status.date_open}}</td>
+						<td>{{status.short_name}}</td>
+						<td>{{status.comment}}</td>
+					</tr>
+				{% endfor %}
+			</table>
+			<button class="btn btn-default" onclick="anotherStep({{ order.getId()}} )">
+				Next step
+			</button>
+			<button class="btn btn-default" onclick="cancelOrder({{ order.getId()}} )">
+				Cancel order
+			</button>
+		</div>
+	</div>
+
+	<script>
+		async function anotherStep(id) {
+let comment = prompt("Enter comment (optional)", "");
+let result = await postJson("/admin/orderdetails/" + id, {
+action: 'nextstep',
+comment: comment
+});
+if (result.status == "success") {
+document.location.href = "/admin/orderdetails/" + id;
+} else {
+alert(result.status)
+}
+}
+
+async function cancelOrder(id) {
+let comment = prompt("Enter comment (optional)", "");
+let result = await postJson("/admin/orderdetails/" + id, {
+action: 'cancelOrder',
+comment: comment
+});
+if (result.status == "success") {
+document.location.href = "/admin/orderdetails/" + id;
+} else {
+alert(result.status)
+}
+}
+	</script>
+{% endblock %}

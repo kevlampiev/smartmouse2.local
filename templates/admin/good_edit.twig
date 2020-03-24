@@ -8,32 +8,41 @@
 			<div class="col-md-6">
 				<h3>General information</h3>
 				<div class="goodImageContainer">
-					<img src="/img/goods/{{good.getImg()}}" class="bigGoodImg"> 
+					<img src="/img/goods/{{good.getImg()}}" class="bigGoodImg">
 					<div>
 						<form>
 							<div class="form-group">
-								<label for="loadMainImg">Load new main img file </label>
+								<label for="loadMainImg">Load new main img file
+								</label>
 								<input type="file" class="form-control-file" id="loadMainImg">
 							</div>
 						</form>
 					</div>
 				</div>
-				<label for="name">Title: </label><br>
-				<input name="name" value="{{good.getName() | raw}}" class="form-control"> <br>
-				<label for="category">Category: </label><br>
+				<label for="name">Title:
+				</label><br>
+				<input name="name" value="{{good.getName() | raw}}" class="form-control">
+				<br>
+				<label for="category">Category:
+				</label><br>
 				<select size="1" name="category" value="{{good.getCategory()}}" class="form-control">
 					{% for category in good.getCategoriesList()  %}
-						<option selected value="{{category.id}}">{{category.name}}</option> 
+						<option value="{{category.id}}">{{category.name}}</option>
 					{% endfor %}
-				</select> <br>
+				</select>
+				<br>
 
 				<div class="form-group">
 					<label for="description">Description</label>
 					<textarea class="form-control" id="description" rows="3">{{good.getDescription()}}</textarea>
 				</div>
-			
-				<button class="btn btn-default"> Save </button>
-				<button class="btn btn-default"> Cancel </button>
+
+				<button class="btn btn-default">
+					Save
+				</button>
+				<button class="btn btn-default">
+					Cancel
+				</button>
 			</div>
 
 
@@ -42,29 +51,44 @@
 
 				<table>
 					<tr>
-						<td class="header_cell"> #</td>
-						<td class="header_cell"> Start date</td>
-						<td class="header_cell"> End date</td>
-						<td class="header_cell"> Price</td>
-						<td class="header_cell"> Currency</td>
-						<td class="header_cell"> 
-							<button class="btn btn-default"> Add price </button>
-						</td>					
+						<td class="header_cell">
+							#</td>
+						<td class="header_cell">
+							Start date</td>
+						<td class="header_cell">
+							End date</td>
+						<td class="header_cell">
+							Price</td>
+						<td class="header_cell">
+							Currency</td>
+						<td class="header_cell">
+							<button class="btn btn-default">
+								Add price
+							</button>
+						</td>
 					</tr>
 					{% for price in good.getPriceList() %}
 						<tr>
-							<td> {{price.id}}</td>
-							<td> {{price.date_open}}</td>
-							<td> {{price.date_close}}</td>
-							<td> {{price.price}}</td>
-							<td> {{price.currency}}</td>
-							<td> <a href="#">Edit</a> <a href="#">Delete</a> </td>
+							<td>
+								{{price.id}}</td>
+							<td>
+								{{price.date_open}}</td>
+							<td>
+								{{price.date_close}}</td>
+							<td>
+								{{price.price}}</td>
+							<td>
+								{{price.currency}}</td>
+							<td>
+								<a href="#">Edit</a>
+								<a href="#">Delete</a>
+							</td>
 						</tr>
 					{% endfor %}
-				</table>	
+				</table>
 
 			</div>
-			
+
 		</div>
 	</div>
 {% endblock %}

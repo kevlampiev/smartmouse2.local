@@ -16,9 +16,10 @@
 				<td class="header_cell">Amount</td>
 				<td class="header_cell">Summ</td>
 				<td class="header_cell">Currency</td>
+				<td class="header_cell">Status</td>
 				<td class="header_cell"></td>
 			</tr>
-			
+
 			{% for order in orders.getOrdersList() %}
 				<tr>
 					<td>{{order.id}}</td>
@@ -31,9 +32,10 @@
 					<td>{{order.tot_amount}}</td>
 					<td>{{order.tot_price}}</td>
 					<td>{{order.currency}}</td>
+					<td>{{order.status_name}}</td>
 					<td>
 						<a href="/admin/orderdetails/{{order.id}}">Details</a>
-											</td>
+					</td>
 				</tr>
 			{% endfor %}
 		</table>
