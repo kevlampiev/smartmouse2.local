@@ -24,45 +24,45 @@
 
 			<div class="form-group">
 				<label for="delivery">Delivery type</label>
-				<select size="1" name="delivery" value="{{order.getDelivery()}}" class="form-control">
+				<select size="1" name="delivery" value="{{order.getDelivery()}}" class="form-control" id="delivery">
 					{% for delivery in order.getDeliveriesList()  %}
-						<option value="{{delivery.id}}">{{delivery.name}}</option>
+						<option value="{{delivery.name}}" {% if delivery.name==order.getDelivery() %} selected {% endif %}>{{delivery.name}}</option>
 					{% endfor %}
 				</select>
 			</div>
 
 			<div class="form-group">
 				<label for="payment">Payment type</label>
-				<select size="1" name="payment" value="{{order.getPayment()}}" class="form-control">
+				<select size="1" name="payment" value="{{order.getPayment()}}" class="form-control" id="payment">
 					{% for payment in order.getPaymentsList()  %}
-						<option value="{{payment.id}}">{{payment.name}}</option>
+						<option value="{{payment.name}}" {% if payment.name==order.getPayment() %} selected {% endif %}>{{payment.name}}</option>
 					{% endfor %}
 				</select>
 			</div>
 
 			<div class="form-group">
 				<label for="contact_name">Contact name</label>
-				<input name="contact_name" id="contact_name" value="{{order.getContactName() }}" class="form-control">
+				<input name="contact_name" value="{{order.getContactName() }}" class="form-control" id="contactName">
 			</div>
 
 			<div class="form-group">
 				<label for="contact_phone">Contact phone</label>
-				<input name="contact_phone" id="contact_phone" value="{{order.getContactPhone()}}" class="form-control">
+				<input name="contact_phone" value="{{order.getContactPhone()}}" class="form-control" id="contactPhone">
 			</div>
 
 
 			<div class="form-group">
 				<label for="delivery_adress">Delivery adress</label>
-				<input name="delivery_adress" id="delivery_adress" value="{{order.getDeliveryAdress()}}" class="form-control">
+				<input name="delivery_adress" value="{{order.getDeliveryAdress()}}" class="form-control" id="deliveryAdress">
 			</div>
 
 			<div class="form-group">
 				<label for="comment">Comments</label>
-				<textarea class="form-control" id="comment" name="comment" rows="3">{{order.getComment()}}</textarea>
+				<textarea class="form-control" id="comments" name="comment" rows="3">{{order.getComment()}}</textarea>
 			</div>
 
 			<div class="form-group">
-				<button class="btn btn-default">
+				<button class="btn btn-default" onclick="editOrder({{order.getId()}})">
 					Save
 				</button>
 				<button class="btn btn-default">
@@ -124,31 +124,5 @@
 		</div>
 	</div>
 
-	<script>
-		async function anotherStep(id) {
-let comment = prompt("Enter comment (optional)", "");
-let result = await postJson("/admin/orderdetails/" + id, {
-action: 'nextstep',
-comment: comment
-});
-if (result.status == "success") {
-document.location.href = "/admin/orderdetails/" + id;
-} else {
-alert(result.status)
-}
-}
-
-async function cancelOrder(id) {
-let comment = prompt("Enter comment (optional)", "");
-let result = await postJson("/admin/orderdetails/" + id, {
-action: 'cancelOrder',
-comment: comment
-});
-if (result.status == "success") {
-document.location.href = "/admin/orderdetails/" + id;
-} else {
-alert(result.status)
-}
-}
-	</script>
+	<script src="/js/adminOrderOperations.js" defer></script>
 {% endblock %}

@@ -25,17 +25,7 @@ class OrderController extends BaseAdminController
     public function postResponse(?array $params = []): string
     {
         $order = new OrderModel($this->id);
-        switch ($params['action']) {
-            case 'nextstep':
-                $res = $order->setNextOrderStatus($params['comment']);
-                break;
-            case 'cancelOrder':
-                $res = $order->cancelOrder($params['comment']);
-                break;
-            default:
-                $res = ['status' => "Error: unknown action {$params['action']}"];
-        }
-        return json_encode($res);
+        return json_encode($order->handleOrder($params));
     }
 
     public function showView(): string

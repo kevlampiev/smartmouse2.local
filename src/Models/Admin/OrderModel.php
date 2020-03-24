@@ -152,4 +152,40 @@ class OrderModel
         $result = DBConnService::selectSingleRow($sql, [$this->id, $comment]);
         return $result;
     }
+
+    public function editOrder(array $params): array
+    {
+        $sql = "CALL edit_order(?,?,?,?,?,?,?)";
+        $result = DBConnService::selectSingleRow(
+            $sql,
+            [
+                $this->id,
+                $params['delivery'],
+                $params['payment'],
+                $params['contactNAme'],
+                $params['contactPhone'],
+                $params['deliveryAdress'],
+                $params['comments']
+            ]
+        );
+        return $result;
+    }
+
+    public function handleOrder(array $params): array
+    {
+        switch ($params['action']) {
+            case 'nextstep':
+                $res = $this->setNextOrderStatus($params['comment']);
+                break;
+            case 'cancelOrder':
+                $res = $this->cancelOrder($params['comment']);
+                break;
+            case 'editOrder':
+                $res = $this->editOrder($params);
+                break;
+            default:
+                $res = ['status' => "Error: unknown action {$params['action']}"];
+        }
+        return $res;
+    }
 }
