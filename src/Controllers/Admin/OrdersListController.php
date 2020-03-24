@@ -13,7 +13,7 @@ class OrdersListController extends BaseAdminController
 
 
     /**
-     * @Route("/admin/orders", name="adminGoods")
+     * @Route("/admin/orders", name="adminOrders")
      */
     public function __invoke(?array $parameters): string
     {

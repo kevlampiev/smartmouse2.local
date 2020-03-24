@@ -3,7 +3,6 @@
 namespace Smarthouse\Controllers\Admin;
 
 
-use Smarthouse\Models\Admin\AdminPanelModel;
 use Smarthouse\Models\Admin\GoodsListModel;
 use Smarthouse\Services\TwigService;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,7 +16,6 @@ class GoodsListController extends BaseAdminController
      */
     public function __invoke(?array $parameters): string
     {
-        // session_start();
         return parent::__invoke($parameters);
     }
 
