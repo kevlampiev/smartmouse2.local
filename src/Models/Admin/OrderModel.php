@@ -46,7 +46,7 @@ class OrderModel
         $this->contactName = $data['contact_name'];
         $this->contactPhone = $data['contact_phone'];
         $this->comment = $data['comment'];
-        $this->deliveryAdress = $data['delivery_adress'];
+        $this->deliveryAdress = $data['delivery_address'];
         $this->totAmount = $data['tot_amount'];
         $this->totPrice = $data['tot_price'];
         $this->currency = $data['currency'];
