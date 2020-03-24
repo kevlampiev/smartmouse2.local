@@ -43,3 +43,36 @@ async function editOrder(id) {
   });
   alert(result.status);
 }
+
+
+async function updatePosition(el,orderId,goodId) {
+  let amount=el.parentNode.parentNode.querySelector('.amount_input').value;
+  let requestBody={
+    action: "editOrderPosition",
+    orderId: orderId,
+    goodId: goodId,
+    amount: amount
+  }
+  console.dir(requestBody)
+  let result = await postJson("/admin/orderdetails/" + orderId, requestBody);
+  alert(result.status);
+}
+
+
+async function deletePosition(el,orderId,goodId) {
+let node=el.parentNode.parentNode
+
+  let requestBody={
+    action: "deleteOrderPosition",
+    orderId: orderId,
+    goodId: goodId
+  }
+  console.dir(requestBody)
+  let result = await postJson("/admin/orderdetails/" + orderId, requestBody);
+  
+  if (result.status=="Ok") {
+    node.parentNode.removeChild(node);
+  } else {
+    alert(result.status);
+  };
+}

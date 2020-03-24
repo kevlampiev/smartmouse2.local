@@ -63,9 +63,25 @@ td {
   height: 200px;
   width:200px;
   outline: 1px solid #ccc;
+  margin-right: 25px;
 }
 
 .goodImageContainer {
   display: flex;
-  justify-content: space-around;
+  justify-content: left;
+}
+
+.canceled_order td {
+  text-decoration: line-through;
+  color: #aaa;
+}
+
+.completed_order td {
+  background-color: #f3f3f3;
+  color: #777;
+}
+
+.amount_input {
+  width: 60px;
+  text-align: center;
 }

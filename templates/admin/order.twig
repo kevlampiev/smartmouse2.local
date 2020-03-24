@@ -63,11 +63,9 @@
 
 			<div class="form-group">
 				<button class="btn btn-default" onclick="editOrder({{order.getId()}})">
-					Save
+					Save changes 
 				</button>
-				<button class="btn btn-default">
-					Cancel
-				</button>
+				
 			</div>
 
 		</div>
@@ -88,12 +86,12 @@
 							<img src="/img/goods/{{good.img}}" class="icon_img">
 						</td>
 						<td>{{good.name}}</td>
-						<td>{{good.amount}}</td>
+						<td><input type="number" value="{{good.amount}}" class="amount_input" min="1" max="100"></td>
 						<td>{{good.price}}</td>
 						<td>{{good.currency}}</td>
 						<td>
-							<a href="/admin/goodedit/{{good.id}}">Edit</a>
-							<a href="#">Delete</a>
+							<a href="#" onclick="updatePosition(this,{{order.getId()}},{{good.good_id}})">Udpate</a>
+							<a href="#" onclick="deletePosition(this,{{order.getId()}},{{good.good_id}})">Delete</a>
 						</td>
 					</tr>
 				{% endfor %}

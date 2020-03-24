@@ -171,6 +171,31 @@ class OrderModel
         return $result;
     }
 
+    public function editOrderPosition(array $params): array
+    {
+        $sql = "UPDATE order_positions SET amount=? WHERE order_id=? AND good_id=?";
+        $result = DBConnService::execQuery(
+            $sql,
+            [   (int) $params['amount'],
+                (int) $params['orderId'],
+                (int) $params['goodId']
+            ]
+        );
+        return $result;
+    }
+
+    public function deleteOrderPosition(array $params): array
+    {
+        $sql = "DELETE FROM order_positions WHERE order_id=? AND good_id=?";
+        $result = DBConnService::execQuery(
+            $sql,
+            [
+                (int) $params['orderId'],
+                (int) $params['goodId']
+            ]
+        );
+        return $result;
+    }
     public function handleOrder(array $params): array
     {
         switch ($params['action']) {
@@ -182,6 +207,12 @@ class OrderModel
                 break;
             case 'editOrder':
                 $res = $this->editOrder($params);
+                break;
+            case 'editOrderPosition':
+                $res=$this->editOrderPosition($params);
+                break;
+            case 'deleteOrderPosition':
+                $res=$this->deleteOrderPosition($params);
                 break;
             default:
                 $res = ['status' => "Error: unknown action {$params['action']}"];

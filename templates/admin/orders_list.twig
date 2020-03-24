@@ -21,7 +21,8 @@
 			</tr>
 
 			{% for order in orders.getOrdersList() %}
-				<tr>
+				<tr {% if order.status_name=="canceled"%} class="canceled_order" {% endif %}
+				{% if order.status_name=="completed"%} class="completed_order" {% endif %}>
 					<td>{{order.id}}</td>
 					<td>{{order.date_open}}</td>
 					<td>{{order.login}}</td>
@@ -29,8 +30,8 @@
 					<td>{{order.payment}}</td>
 					<td>{{order.contact_name}}</td>
 					<td>{{order.contact_phone}}</td>
-					<td>{{order.tot_amount}}</td>
-					<td>{{order.tot_price}}</td>
+					<td>{{order.tot_amount|number_format(0, '.', ',')}}</td>
+					<td>{{order.tot_price|number_format(2, '.', ',')}}</td>
 					<td>{{order.currency}}</td>
 					<td>{{order.status_name}}</td>
 					<td>

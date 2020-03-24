@@ -53,13 +53,19 @@ class OrderModel
             );
             $id = $row['order_id'];
             $sql = 'INSERT INTO order_positions(order_id, good_id, amount, price, currency) VALUES (?,?,?,?,?)';
+            //Устанавливаем позиции в заказе
             foreach ($this->cartItems as $item) {
                 $res = DBConnService::execQuery($sql, [$id, $item['id'], $item['amount'], $item['price'], $item['currency']]);
             }
+            //Чистим корзину
             if ($this->login != null) {
                 $sql = "DELETE FROM cart WHERE user=?";
                 $res = DBConnService::execQuery($sql, [$this->login]);
             }
+            //Регистрируем первый статус заказа
+            $sql="INSERT INTO orders_handle_history (order_id) VALUES (?)";
+            $res = DBConnService::execQuery($sql, [$id]);
+
             $dBase->commit();
             return ['status' => 'success'];
         } catch (Exception $e) {
