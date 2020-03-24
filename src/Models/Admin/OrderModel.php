@@ -162,7 +162,7 @@ class OrderModel
                 $this->id,
                 $params['delivery'],
                 $params['payment'],
-                $params['contactNAme'],
+                $params['contactName'],
                 $params['contactPhone'],
                 $params['deliveryAdress'],
                 $params['comments']
