@@ -46,46 +46,9 @@
 			</div>
 
 
-			<div class="col-md-6">
-				<h3>Prices</h3>
+			<div class="col-md-6" id="good_price_block">
 
-				<table>
-					<tr>
-						<td class="header_cell">
-							#</td>
-						<td class="header_cell">
-							Start date</td>
-						<td class="header_cell">
-							End date</td>
-						<td class="header_cell">
-							Price</td>
-						<td class="header_cell">
-							Currency</td>
-						<td class="header_cell">
-							<button class="btn btn-default">
-								Add price
-							</button>
-						</td>
-					</tr>
-					{% for price in good.getPriceList() %}
-						<tr>
-							<td>
-								{{price.id}}</td>
-							<td>
-								{{price.date_open}}</td>
-							<td>
-								{{price.date_close}}</td>
-							<td>
-								{{price.price}}</td>
-							<td>
-								{{price.currency}}</td>
-							<td>
-								<a href="#">Edit</a>
-								<a href="#">Delete</a>
-							</td>
-						</tr>
-					{% endfor %}
-				</table>
+				{% include "components/good_price_list.twig" %}
 
 			</div>
 
