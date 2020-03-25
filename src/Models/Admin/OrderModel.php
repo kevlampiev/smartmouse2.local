@@ -4,6 +4,7 @@ namespace Smarthouse\Models\Admin;
 
 use DateTime;
 use Smarthouse\Services\DBConnService;
+use Smarthouse\Services\TwigService;
 
 class OrderModel
 {
@@ -51,11 +52,27 @@ class OrderModel
         $this->totPrice = $data['tot_price'];
         $this->currency = $data['currency'];
 
-        $sql = "SELECT * from v_order_positions WHERE order_id=?";
-        $this->goodsList = DBConnService::selectRowsSet($sql, [$this->id]);
+        $this->goodsList = $this->getOrderPositions();
 
+        $this->handleHistory = $this->getOrderHandleHistory();
+    }
+
+    public function getOrderPositions(): array
+    {
+        $sql = "SELECT * from v_order_positions WHERE order_id=?";
+        return DBConnService::selectRowsSet($sql, [$this->id]);
+    }
+
+    public function getOrderHandleHistory(): array
+    {
         $sql = "SELECT * FROM v_orders_handle_history WHERE order_id=? ORDER BY date_open DESC";
-        $this->handleHistory = DBConnService::selectRowsSet($sql, [$this->id]);
+        return DBConnService::selectRowsSet($sql, [$this->id]);
+    }
+
+    public function getHistoryContent(): string
+    {
+        $twig = TwigService::getTwig();
+        return $twig->render('components/order_history_comp.twig', ['statuses' => $this->getOrderHandleHistory()]);
     }
 
     public function getId(): int
@@ -143,8 +160,10 @@ class OrderModel
     {
         $sql = "CALL order_next_step(?,?)";
         $result = DBConnService::selectSingleRow($sql, [$this->id, $comment]);
+        //Добавить контент
         return $result;
     }
+
 
     public function cancelOrder(?string $comment): array
     {
@@ -176,7 +195,8 @@ class OrderModel
         $sql = "UPDATE order_positions SET amount=? WHERE order_id=? AND good_id=?";
         $result = DBConnService::execQuery(
             $sql,
-            [   (int) $params['amount'],
+            [
+                (int) $params['amount'],
                 (int) $params['orderId'],
                 (int) $params['goodId']
             ]
@@ -201,18 +221,20 @@ class OrderModel
         switch ($params['action']) {
             case 'nextstep':
                 $res = $this->setNextOrderStatus($params['comment']);
+                $res['content'] = $this->getHistoryContent();
                 break;
             case 'cancelOrder':
                 $res = $this->cancelOrder($params['comment']);
+                $res['content'] = $this->getHistoryContent();
                 break;
             case 'editOrder':
                 $res = $this->editOrder($params);
                 break;
             case 'editOrderPosition':
-                $res=$this->editOrderPosition($params);
+                $res = $this->editOrderPosition($params);
                 break;
             case 'deleteOrderPosition':
-                $res=$this->deleteOrderPosition($params);
+                $res = $this->deleteOrderPosition($params);
                 break;
             default:
                 $res = ['status' => "Error: unknown action {$params['action']}"];

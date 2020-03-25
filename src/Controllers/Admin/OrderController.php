@@ -34,7 +34,7 @@ class OrderController extends BaseAdminController
         $order = new OrderModel($this->id);
         return TwigService::getTwig()->render(
             'admin/order.twig',
-            ['order' => $order]
+            ['order' => $order, 'statuses' => $order->getHandleHistory()]
         );
     }
 }
