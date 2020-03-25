@@ -18,7 +18,7 @@ abstract class BaseAdminController
         $this->user = new AdminModel();
     }
 
-    public function __invoke(): string
+    public function __invoke(?array $parameters): string
     {
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {

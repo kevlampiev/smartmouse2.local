@@ -1,0 +1,48 @@
+{% extends 'layouts/admin_layout.twig' %}
+{% block title %}
+	admin goods 2.0
+{% endblock %}
+{% block content %}
+	<div class="container-fluid">
+		<table>
+			<tr>
+				<td class="header_cell">Main img</td>
+				<td class="header_cell">Title</td>
+				<td class="header_cell">Category</td>
+				<td class="header_cell">Price</td>
+				<td class="header_cell">Currency</td>
+				<td class="header_cell"></td>
+			</tr>
+			<tr>
+				<td class="header_cell "></td>
+				<td class="header_cell ">
+					<input type="text" name="nameFilter" class="form-control  filter-control" width="50px"></td>
+				<td class="header_cell"><input type="text" name="categoryFilter" class="form-control  filter-control" width="50px"></td>
+				<td class="header_cell price_cell"><input type="number" name="priceFromFilter" value="0" class="form-control  filter-control" width="50px">
+					-
+					<input type="number" name="priceToFilter" value="1000" class="form-control  filter-control" width="50px;"></td>
+				<td class="header_cell"><input type="text" name="currencyFilter" class="form-control  filter-control" width="50px;"></td>
+				<td class="header_cell">
+					<button class="btn btn-default">
+						Set Filter
+					</button>
+				</td>
+			</tr>
+			{% for good in goods.getGoodsList() %}
+				<tr>
+					<td>
+						<img src="/img/goods/{{good.img}}" class="icon_img">
+					</td>
+					<td>{{good.name}}</td>
+					<td>{{good.category}}</td>
+					<td>{{good.price}}</td>
+					<td>{{good.currency}}</td>
+					<td>
+						<a href="/admin/goodedit/{{good.id}}">Edit</a>
+						<a href="#">Delete</a>
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+{% endblock %}

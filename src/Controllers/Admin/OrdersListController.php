@@ -4,15 +4,16 @@ namespace Smarthouse\Controllers\Admin;
 
 
 use Smarthouse\Models\Admin\AdminPanelModel;
+use Smarthouse\Models\Admin\OrdersListModel;
 use Smarthouse\Services\TwigService;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminPanelController extends BaseAdminController
+class OrdersListController extends BaseAdminController
 {
 
 
     /**
-     * @Route("/admin", name="admin")
+     * @Route("/admin/orders", name="adminOrders")
      */
     public function __invoke(?array $parameters): string
     {
@@ -27,10 +28,10 @@ class AdminPanelController extends BaseAdminController
 
     public function showView(): string
     {
-        $admPanelData = new AdminPanelModel();
+        $orders = new OrdersListModel();
         return TwigService::getTwig()->render(
-            'admin/admin_main.twig',
-            ['admPanelInfo' => $admPanelData]
+            'admin/orders_list.twig',
+            ['orders' => $orders]
         );
     }
 }

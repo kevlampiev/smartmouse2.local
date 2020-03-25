@@ -3,27 +3,99 @@
 	admin sm 2.0
 {% endblock %}
 {% block content %}
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
-			<div class="col-sm-4">
-			Одна из трёх колонок
+			<div class="col-lg-4">
+				<div class="dashboard-element">
+					<h3>Orders</h3>
+					<h4>Today's orders</h4>
+					<div>
+						{% if admPanelInfo.getTodayOrders()<1 %}
+							<i>... There's no any order today :(
+							</i>
+						{% else %}
+
+							<table>
+								<tr>
+									<td class="header_cell">Orders amount</td>
+									<td class="header_cell">Summ</td>
+									<td class="header_cell">Currency</td>
+								</tr>
+								{% for order in admPanelInfo.getTodayOrders() %}
+									<tr>
+										<td>{{order.amount}}</td>
+										<td>{{order.summa|number_format(2, '.', ',')}}</td>
+										<td>{{order.currency}}</td>
+									</tr>
+								{% endfor %}
+							</table>
+						{% endif %}
+					</div>
+
+					<div>
+						<h4>Orders in work</h4>
+						<table>
+							<tr>
+								<td class="header_cell">Date</td>
+								<td class="header_cell">User</td>
+								<td class="header_cell">Amount</td>
+								<td class="header_cell">Summ</td>
+								<td class="header_cell">Currency</td>
+							</tr>
+							{% for item in admPanelInfo.getOrdersInWork() %}
+								<tr>
+									<td>
+										{{item.date_open}}
+									</td>
+									<td>
+										{{item.login}}</td>
+									<td>
+										{{item.tot_amount}}
+									</td>
+									<td>
+										{{item.tot_price|number_format(2, '.', ',')}}</td>
+									<td>
+										{{item.currency}}</td>
+								</tr>
+							{% endfor %}
+							<tr>
+								<td class="footer_cell">Total</td>
+								<td class="footer_cell"></td>
+								<td class="footer_cell">{{admPanelInfo.getOrdersInWorkAmount()|number_format(0, '.', ',')}}</td>
+								<td class="footer_cell">{{admPanelInfo.getOrdersInWorkSumm()|number_format(2, '.', ',')}}</td>
+								<td class="footer_cell"></td>
+							</tr>
+						</table>
+					</div>
+				</div>
 			</div>
-			<div class="col-sm-4">
-			Одна из трёх колонок
+			<div class="col-lg-4">
+				<div class="dashboard-element">
+					<h3>Goods statistics</h3>
+					<div>
+						<table>
+							<tr>
+								<td class="header_cell">Name of category</td>
+								<td class="header_cell">Number of goods</td>
+							</tr>
+							{% for category in admPanelInfo.getCategoriesStats() %}
+								<tr>
+									<td>{{category.name}}</td>
+									<td>{{category.goods_count}}</td>
+								</tr>
+							{% endfor %}
+							<tr>
+								<td class="footer_cell">Total goods</td>
+								<td class="footer_cell">{{admPanelInfo.getTotalGoods() }}</td>
+							</tr>
+						</table>
+					</div>
+				</div>
 			</div>
-			<div class="col-sm-4">
-			Одна из трёх колонок
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-4">
-			Одна из трёх колонок
-			</div>
-			<div class="col-sm-4">
-			Одна из трёх колонок
-			</div>
-			<div class="col-sm-4">
-			Одна из трёх колонок
+			<div class="col-lg-4">
+				<div class="dashboard-element">
+					<h3>Customers</h3>
+				</div>
 			</div>
 		</div>
 	</div>

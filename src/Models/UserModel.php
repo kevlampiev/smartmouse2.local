@@ -21,8 +21,8 @@ class UserModel
 
 
     public function __construct()
-    {
-        session_start();
+    { if (!isset($_SESSION['login'])) {
+        session_start(); }
         $this->dbConnection = DBConnService::getConnection();
         $this->isLogged = $this->init();
     }
@@ -80,8 +80,9 @@ class UserModel
         $this->email = $userInfo['email'];
         $this->adress = $userInfo['address'];
         $this->description = $userInfo['description'];
-        $this->goodsAmount = $userInfo['goods_amount'];
-        $this->cartTotal = $userInfo['goods_total'];
+        
+        // $this->goodsAmount = $userInfo['goods_amount'];
+        // $this->cartTotal = $userInfo['goods_total'];
     }
 
     protected function flushData(): void

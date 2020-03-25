@@ -3,20 +3,19 @@
 namespace Smarthouse\Controllers\Admin;
 
 
-use Smarthouse\Models\Admin\AdminPanelModel;
+use Smarthouse\Models\Admin\GoodsListModel;
 use Smarthouse\Services\TwigService;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminPanelController extends BaseAdminController
+class GoodsListController extends BaseAdminController
 {
 
 
     /**
-     * @Route("/admin", name="admin")
+     * @Route("/admin/goods", name="adminGoods")
      */
     public function __invoke(?array $parameters): string
     {
-        // session_start();
         return parent::__invoke($parameters);
     }
 
@@ -27,10 +26,10 @@ class AdminPanelController extends BaseAdminController
 
     public function showView(): string
     {
-        $admPanelData = new AdminPanelModel();
+        $goods = new GoodsListModel();
         return TwigService::getTwig()->render(
-            'admin/admin_main.twig',
-            ['admPanelInfo' => $admPanelData]
+            'admin/goods_list.twig',
+            ['goods' => $goods]
         );
     }
 }

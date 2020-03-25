@@ -42,6 +42,12 @@ class CustomerModel extends UserModel
         return false;
     }
 
+    protected function fillData(array $userInfo): void {
+        parent::fillData($userInfo);
+        $this->goodsAmount = $userInfo['goods_amount'];
+        $this->cartTotal = $userInfo['goods_total'];        
+    }
+
     public function logIn(string $login, string $password, ?string $rememberMe): ?array
     {
         $row = parent::logIn($login, $password, $rememberMe);
