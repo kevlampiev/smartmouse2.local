@@ -9,7 +9,7 @@ use Smarthouse\Services\TwigService;
 use Symfony\Component\Routing\Annotation\Route;
 use Smarthouse\Models\Admin\AdminGoodModel;
 
-class EditGoodController extends BaseAdminController
+class GoodController extends BaseAdminController
 {
     private $params;
 

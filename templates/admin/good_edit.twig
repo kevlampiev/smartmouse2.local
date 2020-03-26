@@ -21,20 +21,20 @@
 				</div>
 				<label for="name">Title:
 				</label><br>
-				<input name="name" value="{{good.getName() | raw}}" class="form-control">
+				<input name="name" value="{{good.getName() | raw}}" class="form-control" onchange="markChanged(this)">
 				<br>
 				<label for="category">Category:
 				</label><br>
-				<select size="1" name="category" value="{{good.getCategory()}}" class="form-control">
+				<select size="1" name="category" value="{{good.getCategory()}}" class="form-control" onchange="markChanged(this)">
 					{% for category in good.getCategoriesList()  %}
-						<option value="{{category.name}}" {% if category.name==good.getCategory() %} selected {% endif %}>{{category.name}}</option>
+						<option value="{{category.id}}" {% if category.id==good.getCategory() %} selected {% endif %}>{{category.name}}</option>
 					{% endfor %}
 				</select>
 				<br>
 
 				<div class="form-group">
 					<label for="description">Description</label>
-					<textarea class="form-control" id="description" rows="3">{{good.getDescription()}}</textarea>
+					<textarea class="form-control" id="description" rows="3" onchange="markChanged(this)">{{good.getDescription()}}</textarea>
 				</div>
 
 				<button class="btn btn-default">
@@ -54,4 +54,6 @@
 
 		</div>
 	</div>
+
+	<script src="/js/adminGoodOperations.js"> </script>
 {% endblock %}
