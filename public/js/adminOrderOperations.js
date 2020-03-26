@@ -27,6 +27,10 @@ async function cancelOrder(id) {
 }
 
 async function editOrder(id) {
+
+  if (!confirm('Really want to save changees?')) {
+    return 0
+  }
   let delivery = document.querySelector("#delivery").value;
   let payment = document.querySelector("#payment").value;
   let contactName = document.querySelector("#contactName").value;
@@ -43,7 +47,15 @@ async function editOrder(id) {
     deliveryAdress: deliveryAdress,
     comments: comments
   });
-  alert(result.status);
+  if (result.status=="success") {
+    document.querySelector("#delivery").classList.remove('changed_input');
+    document.querySelector("#payment").classList.remove('changed_input');
+    document.querySelector("#contactName").classList.remove('changed_input');
+    document.querySelector("#contactPhone").classList.remove('changed_input');
+    document.querySelector("#deliveryAdress").classList.remove('changed_input');
+    document.querySelector("#comments").classList.remove('changed_input');
+  } else {
+  alert(result.status);}
 }
 
 /**
@@ -122,6 +134,11 @@ async function applyOrderPosChanges(id) {
     forEdit: getPosToEdit(),
     forDel: getPosToDel()
   });
+  if (result.status == "success") {
+    document.querySelector('#order_positions').innerHTML=result.content;
+  } else {
+    alert(result.status);
+  }
 }
 
 function getPosToEdit() {

@@ -75,6 +75,14 @@ class OrderModel
         return $twig->render('components/order_history_comp.twig', ['statuses' => $this->getOrderHandleHistory()]);
     }
 
+
+    public function getOrderPositionsContent():string {
+        $twig = TwigService::getTwig();
+        return $twig->render('components/order_position_comp.twig', 
+        ['orderId' => $this->getId(),
+        'goods'=>$this->getOrderPositions()]);
+    }
+
     public function getId(): int
     {
         return (int) $this->id;
@@ -263,6 +271,7 @@ class OrderModel
                 break;
             case 'updatePositions':
                 $res = $this->updateMassive($params);
+                $res['content']=$this->getOrderPositionsContent();
                 break;
             default:
                 $res = ['status' => "Error: unknown action {$params['action']}"];
