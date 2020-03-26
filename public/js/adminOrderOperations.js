@@ -76,3 +76,17 @@ async function deletePosition(el, orderId, goodId) {
     alert(result.status);
   }
 }
+
+function markPositionForDelete(el) {
+  if (el.innerText=='Delete') {
+    el.parentNode.parentNode.classList.add('deleted_position')
+    el.innerText='Undelete'
+  } else {
+    el.parentNode.parentNode.classList.remove('deleted_position')
+    el.innerText='Delete'
+  } 
+}
+
+function markChanged(el) {
+  el.classList.add('changed_input')
+}

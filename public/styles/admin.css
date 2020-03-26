@@ -71,7 +71,12 @@ td {
   justify-content: left;
 }
 
-.canceled_order td {
+.canceled_order td, .deleted_position td {
+  text-decoration: line-through;
+  color: #aaa;
+}
+
+.deleted_position td input {
   text-decoration: line-through;
   color: #aaa;
 }
@@ -84,4 +89,10 @@ td {
 .amount_input {
   width: 60px;
   text-align: center;
+}
+
+.changed_input {
+  background-color: rgb(212, 243, 240);
+  color: darkblue;
+  font-style: italic;
 }
