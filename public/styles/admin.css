@@ -61,7 +61,7 @@ td {
 
 .bigGoodImg {
   height: 200px;
-  width:200px;
+  width: 200px;
   outline: 1px solid #ccc;
   margin-right: 25px;
 }
@@ -71,7 +71,13 @@ td {
   justify-content: left;
 }
 
-.canceled_order td {
+.canceled_order td,
+.deleted_order_position td {
+  text-decoration: line-through;
+  color: #aaa;
+}
+
+.deleted_order_position td input {
   text-decoration: line-through;
   color: #aaa;
 }
@@ -84,4 +90,10 @@ td {
 .amount_input {
   width: 60px;
   text-align: center;
+}
+
+.changed_input {
+  background-color: rgb(212, 243, 240);
+  color: darkblue;
+  font-style: italic;
 }

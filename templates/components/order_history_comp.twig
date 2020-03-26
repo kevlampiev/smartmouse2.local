@@ -1,0 +1,22 @@
+<h3>Status history</h3>
+<table>
+  <tr>
+    <td class="header_cell">Date changed</td>
+    <td class="header_cell">Status</td>
+    <td class="header_cell">Comment</td>
+  </tr>
+  {% for status in statuses %}
+  <tr>
+    <td>{{ status.date_open }}</td>
+    <td>{{ status.short_name }}</td>
+    <td>{{ status.comment }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<button class="btn btn-default" onclick="anotherStep({{ order.getId() }} )">
+  Next step
+</button>
+<button class="btn btn-default" onclick="cancelOrder({{ order.getId() }} )">
+  Cancel order
+</button>

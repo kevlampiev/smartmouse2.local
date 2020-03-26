@@ -24,7 +24,7 @@
 
 			<div class="form-group">
 				<label for="delivery">Delivery type</label>
-				<select size="1" name="delivery" value="{{order.getDelivery()}}" class="form-control" id="delivery">
+				<select size="1" name="delivery" value="{{order.getDelivery()}}" class="form-control" id="delivery" onchange="markChanged(this)">
 					{% for delivery in order.getDeliveriesList()  %}
 						<option value="{{delivery.name}}" {% if delivery.name==order.getDelivery() %} selected {% endif %}>{{delivery.name}}</option>
 					{% endfor %}
@@ -33,7 +33,7 @@
 
 			<div class="form-group">
 				<label for="payment">Payment type</label>
-				<select size="1" name="payment" value="{{order.getPayment()}}" class="form-control" id="payment">
+				<select size="1" name="payment" value="{{order.getPayment()}}" class="form-control" id="payment" onchange="markChanged(this)">
 					{% for payment in order.getPaymentsList()  %}
 						<option value="{{payment.name}}" {% if payment.name==order.getPayment() %} selected {% endif %}>{{payment.name}}</option>
 					{% endfor %}
@@ -42,83 +42,40 @@
 
 			<div class="form-group">
 				<label for="contact_name">Contact name</label>
-				<input name="contact_name" value="{{order.getContactName() }}" class="form-control" id="contactName">
+				<input name="contact_name" value="{{order.getContactName() }}" class="form-control" id="contactName" onchange="markChanged(this)">
 			</div>
 
 			<div class="form-group">
 				<label for="contact_phone">Contact phone</label>
-				<input name="contact_phone" value="{{order.getContactPhone()}}" class="form-control" id="contactPhone">
+				<input name="contact_phone" value="{{order.getContactPhone()}}" class="form-control" id="contactPhone" onchange="markChanged(this)">
 			</div>
 
 
 			<div class="form-group">
 				<label for="delivery_adress">Delivery adress</label>
-				<input name="delivery_adress" value="{{order.getDeliveryAdress()}}" class="form-control" id="deliveryAdress">
+				<input name="delivery_adress" value="{{order.getDeliveryAdress()}}" class="form-control" id="deliveryAdress" onchange="markChanged(this)">
 			</div>
 
 			<div class="form-group">
 				<label for="comment">Comments</label>
-				<textarea class="form-control" id="comments" name="comment" rows="3">{{order.getComment()}}</textarea>
+				<textarea class="form-control" id="comments" name="comment" rows="3" onchange="markChanged(this)">{{order.getComment()}}</textarea>
 			</div>
 
 			<div class="form-group">
 				<button class="btn btn-default" onclick="editOrder({{order.getId()}})">
-					Save changes 
+					Save general information changes
 				</button>
-				
+
 			</div>
 
 		</div>
-		<div class="col-md-4">
-			<h3>Positions in order</h3>
-			<table>
-				<tr>
-					<td class="header_cell">Img</td>
-					<td class="header_cell">Title</td>
-					<td class="header_cell">Amount</td>
-					<td class="header_cell">Price</td>
-					<td class="header_cell">Currency</td>
-					<td class="header_cell"></td>
-				</tr>
-				{% for good in order.getGoodsList() %}
-					<tr>
-						<td>
-							<img src="/img/goods/{{good.img}}" class="icon_img">
-						</td>
-						<td>{{good.name}}</td>
-						<td><input type="number" value="{{good.amount}}" class="amount_input" min="1" max="100"></td>
-						<td>{{good.price}}</td>
-						<td>{{good.currency}}</td>
-						<td>
-							<a href="#" onclick="updatePosition(this,{{order.getId()}},{{good.good_id}})">Udpate</a>
-							<a href="#" onclick="deletePosition(this,{{order.getId()}},{{good.good_id}})">Delete</a>
-						</td>
-					</tr>
-				{% endfor %}
-			</table>
+		<div class="col-md-4" id="order_positions">
+			{% include "components/order_position_comp.twig" %}
 		</div>
-		<div class="col-md-4">
-			<h3>Status history</h3>
-			<table>
-				<tr>
-					<td class="header_cell">Date changed</td>
-					<td class="header_cell">Status</td>
-					<td class="header_cell">Comment</td>
-				</tr>
-				{% for status in order.getHandleHistory() %}
-					<tr>
-						<td>{{status.date_open}}</td>
-						<td>{{status.short_name}}</td>
-						<td>{{status.comment}}</td>
-					</tr>
-				{% endfor %}
-			</table>
-			<button class="btn btn-default" onclick="anotherStep({{ order.getId()}} )">
-				Next step
-			</button>
-			<button class="btn btn-default" onclick="cancelOrder({{ order.getId()}} )">
-				Cancel order
-			</button>
+
+		
+		<div class="col-md-4" id="order_history_comp">
+			{% include "components/order_history_comp.twig" %}
 		</div>
 	</div>
 
