@@ -127,8 +127,9 @@ function markChanged(el) {
  * Записывает на сервере все изменения, проведенные клиентом с позициями заказа
  */
 async function applyOrderPosChanges(id) {
-  // let deletedPositions = document.querySelectorAll(".deleted_order_position");
-  // console.dir(deletedPositions);
+  if (!confirm('Save changes for order positions?')) {
+    return 0
+  }
   let result = await postJson("/admin/orderdetails/" + id, {
     action: "updatePositions",
     forEdit: getPosToEdit(),
