@@ -1,0 +1,33 @@
+<h3>Positions in order</h3>
+<table>
+	<tr>
+		<td class="header_cell">Img</td>
+		<td class="header_cell">Title</td>
+		<td class="header_cell">Amount</td>
+		<td class="header_cell">Price</td>
+		<td class="header_cell">Currency</td>
+		<td class="header_cell"></td>
+	</tr>
+	{% for good in order.getGoodsList() %}
+		<tr class="order_position_row" data-orderid="{{order.getId()}}" data-goodid="{{good.good_id}}">
+			<td>
+				<img src="/img/goods/{{good.img}}" class="icon_img">
+			</td>
+			<td>{{good.name}}</td>
+			<td><input type="number" value="{{good.amount}}" class="amount_input" min="1" max="100" onchange="markChanged(this)"></td>
+			<td>{{good.price}}</td>
+			<td>{{good.currency}}</td>
+			<td>
+				{# <a href="#" onclick="updatePosition(this,{{order.getId()}},{{good.good_id}})">Udpate</a> #}
+				{# <a href="#" onclick="deletePosition(this,{{order.getId()}},{{good.good_id}})">Delete</a> #}
+					<a href="#" onclick="markPositionForDelete(this)"> Delete</a>
+			</td>
+		</tr>
+	{% endfor %}
+</table>
+<div class="form-group">
+	<button class="btn btn-default" onclick="applyOrderPosChanges({{order.getId()}})">
+		Save changes in order position
+	</button>
+
+</div>

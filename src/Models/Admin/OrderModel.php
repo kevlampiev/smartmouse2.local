@@ -216,6 +216,31 @@ class OrderModel
         );
         return $result;
     }
+
+    public function updateMassive(array $params): array
+    {
+        $setForEdit = $params['forEdit'];
+        $setForDel = $params['forDel'];
+        $dBase = DBConnService::getConnection();
+        try {
+            $dBase->beginTransaction();
+            $sql = "UPDATE order_positions SET amount=? WHERE order_id=? AND good_id=?";
+            foreach ($setForEdit as $item) {
+                $res = DBConnService::execQuery($sql, [$item['amount'], $item['orderId'], $item['goodId']]);
+            }
+            $sql = "DELETE FROM order_positions WHERE order_id=? AND good_id=?";
+            foreach ($setForDel as $item) {
+                $res = DBConnService::execQuery($sql, [$item['orderId'], $item['goodId']]);
+            }
+            $dBase->commit();
+            return ['status' => 'success'];
+        } catch (Exception $e) {
+            $dBase->rollBack();
+            return ['error' => $e->getMessage()];
+        }
+    }
+
+
     public function handleOrder(array $params): array
     {
         switch ($params['action']) {
@@ -235,6 +260,9 @@ class OrderModel
                 break;
             case 'deleteOrderPosition':
                 $res = $this->deleteOrderPosition($params);
+                break;
+            case 'updatePositions':
+                $res = $this->updateMassive($params);
                 break;
             default:
                 $res = ['status' => "Error: unknown action {$params['action']}"];

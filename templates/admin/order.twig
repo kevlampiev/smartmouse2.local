@@ -9,7 +9,7 @@
 				General info</h3>
 			<div class="form-group">
 				<label for="id">Order No</label>
-				<input name="id" id="id" value="{{order.getId()}}" class="form-control" disabled="true" >
+				<input name="id" id="id" value="{{order.getId()}}" class="form-control" disabled="true">
 			</div>
 
 			<div class="form-group">
@@ -65,44 +65,12 @@
 				<button class="btn btn-default" onclick="editOrder({{order.getId()}})">
 					Save general information changes
 				</button>
-				
+
 			</div>
 
 		</div>
-		<div class="col-md-4">
-			<h3>Positions in order</h3>
-			<table>
-				<tr>
-					<td class="header_cell">Img</td>
-					<td class="header_cell">Title</td>
-					<td class="header_cell">Amount</td>
-					<td class="header_cell">Price</td>
-					<td class="header_cell">Currency</td>
-					<td class="header_cell"></td>
-				</tr>
-				{% for good in order.getGoodsList() %}
-					<tr>
-						<td>
-							<img src="/img/goods/{{good.img}}" class="icon_img">
-						</td>
-						<td>{{good.name}}</td>
-						<td><input type="number" value="{{good.amount}}" class="amount_input" min="1" max="100" onchange="markChanged(this)"></td>
-						<td>{{good.price}}</td>
-						<td>{{good.currency}}</td>
-						<td>
-							{# <a href="#" onclick="updatePosition(this,{{order.getId()}},{{good.good_id}})">Udpate</a> #}
-							{# <a href="#" onclick="deletePosition(this,{{order.getId()}},{{good.good_id}})">Delete</a> #}
-							<a href="#" onclick="markPositionForDelete(this)">Delete</a>
-						</td>
-					</tr>
-				{% endfor %}
-			</table>
-			<div class="form-group">
-				<button class="btn btn-default" onclick="alert('Not Relized')">
-					Save changes in order position
-				</button>
-				
-			</div>
+		<div class="col-md-4" id="order_positions">
+			{% include "components/order_position_comp.twig" %}
 		</div>
 		<div class="col-md-4" id="order_history_comp">
 			{% include "components/order_history_comp.twig" %}
