@@ -24,3 +24,23 @@ async function postJson(url, data) {
     //Task. Надо добить вывод ошибки в отдельном окошке всплывающем. Работа для vue
   }
 }
+
+/**
+ * Пересылает файл (картинки) на сервер. Упаковывается в контейнер вместе с остальными данными
+ * @param {string} url
+ * @param {Object} fileContainer объект с файлом
+ */
+async function postFile(url, fileContainer) {
+  try {
+    let result = fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "multipart/form-data"
+      },
+      body: fileContainer
+    });
+    return result.json();
+  } catch (err) {
+    console.error(err);
+  }
+}
