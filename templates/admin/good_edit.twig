@@ -55,5 +55,38 @@
 		</div>
 	</div>
 
-	<script src="/js/adminGoodOperations.js"> </script>
+
+<!-- Модальное окно редактирования цены-->  
+<div class="centered-form hidden" id="edit-price-form">
+	<div class="editFormTitle"> Edit price </div>
+	<div class="form-group">
+		<label for="editDate">Start date for price
+		</label>
+		<input type="date" class="form-control" id="editDate">
+	</div>
+	<div class="form-group">
+		<label for="editPrice">Price
+		</label>
+		<input type="number" class="form-control" id="editPrice" step="0.01" min="0">
+	</div>
+	<div class="form-group">
+		<label for="editCurrency">Currency
+		</label>
+		<select size="1" name="editCurrency"  class="form-control">
+					{% for category in good.getCategoriesList()  %}
+						<option value="{{category.name}}" >{{category.name}}</option>
+					{% endfor %}
+				</select>
+	</div>
+
+		<button class="btn btn-default" onclick="cancelPriceEditDlg()">
+			Save changes
+		</button>
+		<button class="btn btn-default" onclick="cancelPriceEditDlg()">
+			Cancel
+		</button>
+
+<div>
+
+	<script src="/js/adminGoodOperations.js" defer> </script>
 {% endblock %}
