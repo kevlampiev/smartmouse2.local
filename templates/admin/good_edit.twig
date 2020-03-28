@@ -72,14 +72,14 @@
 	<div class="form-group">
 		<label for="editCurrency">Currency
 		</label>
-		<select size="1" name="editCurrency"  class="form-control">
-					{% for category in good.getCategoriesList()  %}
-						<option value="{{category.name}}" >{{category.name}}</option>
+		<select size="1" name="editCurrency" id="editCurrency" class="form-control">
+					{% for currency in good.getCurrencyList()  %}
+						<option value="{{currency.currency}}" >{{currency.currency}}</option>
 					{% endfor %}
 				</select>
 	</div>
 
-		<button class="btn btn-default" onclick="cancelPriceEditDlg()">
+		<button class="btn btn-primary" onclick="postPriceEditing({{good.getId()}})">
 			Save changes
 		</button>
 		<button class="btn btn-default" onclick="cancelPriceEditDlg()">

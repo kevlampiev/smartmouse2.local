@@ -16,7 +16,7 @@
       Currency
     </td>
     <td class="header_cell">
-      <button class="btn btn-default" onclick="showPriceEditDlg()">
+      <button class="btn btn-default" onclick="startPriceAdd()">
         Add price
       </button>
     </td>
@@ -37,8 +37,8 @@
       {{ price.currency }}
     </td>
     <td>
-      <a href="#">Edit</a>
-      <a href="#">Delete</a>
+      <a href="#" onclick="startPriceEdit({{price.id}},{{price.price}},'{{price.currency}}','{{price.date_open}}')">Edit</a>
+      <a href="#"onclick="deletePrice({{good.getId()}},{{price.id}})"> Delete</a>
     </td>
   </tr>
   {% endfor %}
