@@ -8,15 +8,18 @@
 			<div class="col-md-6">
 				<h3>General information</h3>
 				<div class="goodImageContainer">
-					<img src="/img/goods/{{good.getImg()}}" class="bigGoodImg">
+					<a href="#" onclick="editMainGoodImg()">
+						<img src="/img/goods/{{good.getImg()}}" class="bigGoodImg">
+					</a>
 					<div>
-						<form>
+						{# <form>
 							<div class="form-group">
 								<label for="loadMainImg">Load new main img file
 								</label>
 								<input type="file" class="form-control-file" id="loadMainImg">
 							</div>
-						</form>
+						</form> #}
+						It's the main image of this good. To load a new image press on the picture
 					</div>
 				</div>
 				<label for="name">Title:
@@ -46,47 +49,39 @@
 			</div>
 
 
-			<div class="col-md-6" id="good_price_block">
+			<div class="col-md-6" >
 
-				{% include "components/good_price_list.twig" %}
+				<ul class="nav nav-tabs">
+				
+				<li class="active">
+					<a data-toggle="tab" href="#images">Additional images</a>
+				</li>
+				<li>
+					<a data-toggle="tab" href="#good_price_block">Prices</a>
+				</li>
+				</ul>
 
+				<div class="tab-content">
+				<div class="tab-pane" id="images">
+					Images
+				</div>
+				<div class="tab-pane" id="good_price_block">
+					{% include "components/good_price_list.twig" %}
+				</div>
+				</div>
+				
 			</div>
 
 		</div>
 	</div>
+	
+
+	{% include "components/load_img_form.twig" %}
 
 
-<!-- Модальное окно редактирования цены-->  
-<div class="centered-form hidden" id="edit-price-form">
-	<div class="editFormTitle"> Edit price </div>
-	<div class="form-group">
-		<label for="editDate">Start date for price
-		</label>
-		<input type="date" class="form-control" id="editDate">
-	</div>
-	<div class="form-group">
-		<label for="editPrice">Price
-		</label>
-		<input type="number" class="form-control" id="editPrice" step="0.01" min="0">
-	</div>
-	<div class="form-group">
-		<label for="editCurrency">Currency
-		</label>
-		<select size="1" name="editCurrency" id="editCurrency" class="form-control">
-					{% for currency in good.getCurrencyList()  %}
-						<option value="{{currency.currency}}" >{{currency.currency}}</option>
-					{% endfor %}
-				</select>
-	</div>
+	{% include "components/good_price_edit.twig" %}
 
-		<button class="btn btn-primary" onclick="postPriceEditing({{good.getId()}})">
-			Save changes
-		</button>
-		<button class="btn btn-default" onclick="cancelPriceEditDlg()">
-			Cancel
-		</button>
-
-<div>
+	
 
 	<script src="/js/adminGoodOperations.js" defer> </script>
 {% endblock %}

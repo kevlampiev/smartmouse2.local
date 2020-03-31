@@ -5,6 +5,7 @@ const editDate=document.querySelector('#editDate')
 const editPrice=document.querySelector('#editPrice')
 const editCurrency=document.querySelector('#editCurrency')
 const goodPriceBlock=document.querySelector('#good_price_block')
+const loadGoodImgForm=document.querySelector('#load_img_form')
 
 
 
@@ -111,3 +112,8 @@ async function deletePrice(goodId, priceId) {
     }
 
   }
+
+function editMainGoodImg() {
+  loadGoodImgForm.classList.remove('hidden')
+
+}
