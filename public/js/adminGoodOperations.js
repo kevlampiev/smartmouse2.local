@@ -1,6 +1,7 @@
 let priceEditMode = "none";
 let currentPriceId = 0;
 let newMainImg = "";
+let additionalImgs = [];
 
 //Объект с первоначальными данными
 let initialGoodValues = {
@@ -17,6 +18,7 @@ const editCurrency = document.querySelector("#editCurrency");
 const goodPriceBlock = document.querySelector("#good_price_block");
 const imgEl = document.querySelector("#main-good-img");
 const loadGoodImgForm = document.querySelector("#load_img_form");
+const loadAddsImgForm = document.querySelector("#load_many_img_form");
 const bigImgDesc = document.querySelector("#bigImgDescript");
 
 const singleLoader = new Dropzone("#fileupload", {
@@ -49,6 +51,44 @@ const singleLoader = new Dropzone("#fileupload", {
       alert(resp.status);
     }
     loadGoodImgForm.classList.add("hidden");
+  },
+});
+
+const manyFilesLoader = new Dropzone("#manyfileupload", {
+  url: "/admin/manyFilesUpload",
+  maxFiles: 5,
+  init: function () {
+    this.element.innerHTML =
+      '<div class="dz-message"> Click to open file dialog or drag picture here (max 5 files)...</div>';
+
+    this.on("complete", function (file) {
+      // let dz = this;
+      // setTimeout(function () {
+      //   dz.removeAllFiles(true);
+      //   dz.element.innerHTML =
+      //     '<div class="dz-message"> Click to open file dialog or drag picture here...</div>';
+      // }, 1000);
+    });
+  },
+  acceptedFiles: "image/*",
+  success: (file, responce) => {
+    let res = JSON.parse(responce);
+    console.dir(res);
+    console.dir(res.filename);
+    additionalImgs.push(res.filename);
+    console.dir(additionalImgs);
+
+    // resp = JSON.parse(responce);
+    // if (resp.status == "success") {
+    //   imgEl.src = "/img/goods/" + resp.filename;
+    //   imgEl.classList.add("changed_img");
+    //   newMainImg = resp.filename;
+    //   bigImgDesc.innerHTML =
+    //     "Main image for with good ave been changed. Click <Save changes> to apply";
+    // } else {
+    //   alert(resp.status);
+    // }
+    // loadGoodImgForm.classList.add("hidden");
   },
 });
 
@@ -206,6 +246,33 @@ function removeEditMarks() {
   document.querySelector("#name").classList.remove("changed_input");
   document.querySelector("#category").classList.remove("changed_input");
   document.querySelector("#description").classList.remove("changed_input");
+}
+
+function addAddsImgs() {
+  loadAddsImgForm.classList.remove("hidden");
+}
+
+function cancelAddsImgs() {
+  loadAddsImgForm.classList.add("hidden");
+  manyFilesLoader.removeAllFiles(true);
+  additionalImgs = [];
+}
+
+//Загрузка дополнительных изображений товаров
+async function prooceedUplFiles(id) {
+  let requestBody = {
+    action: "addFiles",
+    goodId: id,
+    fileNames: additionalImgs,
+  };
+  let result = await postJson("/admin/goodedit/" + id, requestBody);
+  if (result.status == "success") {
+    document.querySelector("#images").innerHTML = result.content;
+  } else {
+    alert(result.status);
+  }
+  loadAddsImgForm.classList.add("hidden");
+  additionalImgs = [];
 }
 
 window.onload = () => {

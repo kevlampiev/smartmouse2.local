@@ -17,17 +17,17 @@ class GoodController extends BaseAdminController
 {
     private $params;
 
-    
+
     public function __invoke(?array $parameters): string
     {
         // session_start();
-        $this->params=$parameters;
+        $this->params = $parameters;
         return parent::__invoke($parameters);
     }
 
     public function postResponse(?array $params = []): string
     {
-        $good=new AdminGoodModel($this->params['id']);
+        $good = new AdminGoodModel($this->params['id']);
 
         return json_encode($good->handleGood($params));
     }
@@ -35,11 +35,11 @@ class GoodController extends BaseAdminController
     public function showView(): string
     {
 
-        $good=new AdminGoodModel($this->params['id']);
+        $good = new AdminGoodModel($this->params['id']);
 
         return TwigService::getTwig()->render(
             'admin/good_edit.twig',
-            ['good'=>$good]
+            ['good' => $good, 'addsImages' => $good->getAddPhotos($good->getId())]
         );
     }
 }

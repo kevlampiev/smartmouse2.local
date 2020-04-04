@@ -1,0 +1,15 @@
+<div class="add-control-pnl">
+
+	<button type="button" class="btn btn-info" onclick="addAddsImgs()">Add additional photos</button>
+
+</div>
+
+{% for image in addsImages %}
+	<div class="add_img_container">
+		<img class="additional_good_img" src="/img/goods/{{image.img}}">
+		<div>
+			<button type="button" class="btn btn-secondary">Delete</button>
+		</div>
+
+	</div>
+{% endfor %}

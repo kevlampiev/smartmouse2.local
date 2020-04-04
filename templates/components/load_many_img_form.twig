@@ -1,0 +1,14 @@
+<!-- Модальное окно загрузкиизображения-->
+<div class="centered-form hidden" id="load_many_img_form">
+	<div class="editFormTitle">Load new image</div>
+	<form action="/file-upload" class="fileload fileupload-marg" id="manyfileupload"></form>
+	<div class="form-group">
+		<button class="btn btn-primary" type="submit" onclick="prooceedUplFiles({{good.getId()}})">
+			Ok
+		</button>
+
+		<button class="btn btn-default" type="reset" onclick="cancelAddsImgs()">
+			Cancel
+		</button>
+	</div>
+</div>

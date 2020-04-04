@@ -119,3 +119,26 @@ td {
 .fileupload-marg {
   margin: 25px 0;
 }
+
+.add-control-pnl {
+  padding: 10px;
+  height: 50px;
+  border-bottom: 2px soid #aaa;
+}
+
+.add-control-pnl button {
+  float: right;
+}
+
+.add_img_container {
+  margin: 15px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+}
+
+.additional_good_img {
+  width: 120px;
+  height: 120px;
+  margin: 15px;
+}

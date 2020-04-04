@@ -11,6 +11,7 @@ class AdminGoodModel extends SingleGoodModel
 {
     private $priceList;
     private $categoriesList;
+    // private $additionalGoods;
 
     public function init(int $id): void
     {
@@ -48,6 +49,21 @@ class AdminGoodModel extends SingleGoodModel
     public function getPricesContent(): string
     {
         return TwigService::getTwig()->render('components/good_price_list.twig', ['good' => $this]);
+    }
+
+    // public function getAddPhotos(int $id = null): array
+    // {
+    //     $sql = 'SELECT id, img FROM v_additional_goods_photos WHERE good_id=?';
+    //     $res = DBConnService::selectRowsSet($sql, [$this->id]);
+    //     return $res;
+    // }
+
+    public function getAddsImgsContents(): string
+    {
+        return TwigService::getTwig()->render(
+            'components/good_additional_imgs.twig',
+            ['addsImages' => $this->getAddPhotos($this->id)]
+        );
     }
 
     public function addPrice(array $params): array
@@ -113,6 +129,29 @@ class AdminGoodModel extends SingleGoodModel
         return $res;
     }
 
+    private function addAdditionalImgs(array $params): array
+    {
+        $files = $params['fileNames'];
+        $dBase = DBConnService::getConnection();
+        try {
+            $dBase->beginTransaction();
+            foreach ($files as $file) {
+                $sql = "INSERT INTO goods_photos (good_id, photo_id) 
+                        SELECT ?,id FROM photos WHERE img=?";
+                $res = DBConnService::execQuery($sql, [
+                    $params['goodId'],
+                    $file
+                ]);
+            }
+            $dBase->commit();
+            $res = ['status' => 'success', 'content' => $this->getAddsImgsContents()];
+        } catch (Exception $e) {
+            $dBase->rollBack();
+            $res = ['status' => "Error: {$e->getMessage()}"];
+        }
+        return $res;
+    }
+
     public function handleGood(array $params): array
     {
         switch ($params['action']) {
@@ -127,6 +166,9 @@ class AdminGoodModel extends SingleGoodModel
                 break;
             case 'updateGeneralInfo':
                 $res = $this->updateGeneralInfo($params);
+                break;
+            case 'addFiles':
+                $res = $this->addAdditionalImgs($params);
                 break;
             default:
                 $res = ['status' => "Error: the action {$params['action']} doesn't exist..."];
