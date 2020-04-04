@@ -275,6 +275,26 @@ async function prooceedUplFiles(id) {
   additionalImgs = [];
 }
 
+async function delAdImg(goodId, photoId) {
+  if (
+    !confirm("Do you really want to remove this photo from good description?")
+  ) {
+  } else {
+    let requestBody = {
+      action: "delAdditionalPhoto",
+      goodId: goodId,
+      photoId: photoId,
+    };
+
+    let result = await postJson("/admin/goodedit/" + goodId, requestBody);
+    if (result.status == "success") {
+      document.querySelector("#images").innerHTML = result.content;
+    } else {
+      alert(result.status);
+    }
+  }
+}
+
 window.onload = () => {
   readInitParams();
 };

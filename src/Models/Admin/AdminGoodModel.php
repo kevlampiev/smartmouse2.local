@@ -152,6 +152,21 @@ class AdminGoodModel extends SingleGoodModel
         return $res;
     }
 
+    private function delAdditionalPhoto(array $params): array
+    {
+
+        try {
+            $sql = 'DELETE FROM goods_photos WHERE good_id=? AND photo_id=?';
+            $res = DBConnService::execQuery($sql, [$params['goodId'], $params['photoId']]);
+            if ($res['status'] == "Ok") {
+                $res = ['status' => 'success', 'content' => $this->getAddsImgsContents()];
+            }
+        } catch (Exception $e) {
+            $res = ['status' => "Error: {$e->getMessage()}"];
+        }
+        return $res;
+    }
+
     public function handleGood(array $params): array
     {
         switch ($params['action']) {
@@ -169,6 +184,9 @@ class AdminGoodModel extends SingleGoodModel
                 break;
             case 'addFiles':
                 $res = $this->addAdditionalImgs($params);
+                break;
+            case 'delAdditionalPhoto':
+                $res = $this->delAdditionalPhoto($params);
                 break;
             default:
                 $res = ['status' => "Error: the action {$params['action']} doesn't exist..."];
