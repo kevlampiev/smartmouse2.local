@@ -9,13 +9,15 @@ use Smarthouse\Services\TwigService;
 use Symfony\Component\Routing\Annotation\Route;
 use Smarthouse\Models\Admin\AdminGoodModel;
 
-class EditGoodController extends BaseAdminController
+
+/**
+ * @Route("/admin/goodedit/{id}", name="adminGoodEdit")
+ */
+class GoodController extends BaseAdminController
 {
     private $params;
 
-    /**
-     * @Route("/admin/goodedit/{id}", name="adminGoodEdit")
-     */
+    
     public function __invoke(?array $parameters): string
     {
         // session_start();
@@ -25,7 +27,9 @@ class EditGoodController extends BaseAdminController
 
     public function postResponse(?array $params = []): string
     {
-        return 'No presents for Christmass';
+        $good=new AdminGoodModel($this->params['id']);
+
+        return json_encode($good->handleGood($params));
     }
 
     public function showView(): string

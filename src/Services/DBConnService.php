@@ -20,11 +20,11 @@ final class DBConnService
     private function __construct()
     {
     }
-    public static function getConnection(): PDO
+    public static function getConnection(string $dbDriver=DB_DRIVER, $dbHost=DB_HOST, string $dbName=DB_NAME, string $dbUser=DB_USER, string $dbPass=DB_PASS): PDO
     {
         if (self::$dBase == null) {
-            $connect_str = DB_DRIVER . ':host=' . DB_HOST . ';dbname=' . DB_NAME;
-            self::$dBase = new PDO($connect_str, DB_USER, DB_PASS);
+            $connect_str = $dbDriver . ':host=' . $dbHost . ';dbname=' . $dbName;
+            self::$dBase = new PDO($connect_str, $dbUser, $dbPass);
             self::$dBase->exec('SET NAMES UTF8');
             self::$dBase->setAttribute(PDO::ATTR_EMULATE_PREPARES, PDO::FETCH_ASSOC);
         };
