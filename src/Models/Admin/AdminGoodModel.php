@@ -11,7 +11,6 @@ class AdminGoodModel extends SingleGoodModel
 {
     private $priceList;
     private $categoriesList;
-    // private $additionalGoods;
 
     public function init(int $id): void
     {
@@ -50,13 +49,6 @@ class AdminGoodModel extends SingleGoodModel
     {
         return TwigService::getTwig()->render('components/good_price_list.twig', ['good' => $this]);
     }
-
-    // public function getAddPhotos(int $id = null): array
-    // {
-    //     $sql = 'SELECT id, img FROM v_additional_goods_photos WHERE good_id=?';
-    //     $res = DBConnService::selectRowsSet($sql, [$this->id]);
-    //     return $res;
-    // }
 
     public function getAddsImgsContents(): string
     {

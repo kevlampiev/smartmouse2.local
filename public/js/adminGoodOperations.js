@@ -61,14 +61,7 @@ const manyFilesLoader = new Dropzone("#manyfileupload", {
     this.element.innerHTML =
       '<div class="dz-message"> Click to open file dialog or drag picture here (max 5 files)...</div>';
 
-    this.on("complete", function (file) {
-      // let dz = this;
-      // setTimeout(function () {
-      //   dz.removeAllFiles(true);
-      //   dz.element.innerHTML =
-      //     '<div class="dz-message"> Click to open file dialog or drag picture here...</div>';
-      // }, 1000);
-    });
+    this.on("complete", function (file) {});
   },
   acceptedFiles: "image/*",
   success: (file, responce) => {
@@ -77,18 +70,6 @@ const manyFilesLoader = new Dropzone("#manyfileupload", {
     console.dir(res.filename);
     additionalImgs.push(res.filename);
     console.dir(additionalImgs);
-
-    // resp = JSON.parse(responce);
-    // if (resp.status == "success") {
-    //   imgEl.src = "/img/goods/" + resp.filename;
-    //   imgEl.classList.add("changed_img");
-    //   newMainImg = resp.filename;
-    //   bigImgDesc.innerHTML =
-    //     "Main image for with good ave been changed. Click <Save changes> to apply";
-    // } else {
-    //   alert(resp.status);
-    // }
-    // loadGoodImgForm.classList.add("hidden");
   },
 });
 

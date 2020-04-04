@@ -11,7 +11,7 @@ class GoodsListModel
 
     public function __construct()
     {
-        $sql = 'SELECT * FROM v_goods_all';
+        $sql = 'SELECT * FROM v_available_goods';
         $this->goodsList = DBConnService::selectRowsSet($sql);
     }
 
