@@ -9,26 +9,20 @@
 				<h3>General information</h3>
 				<div class="goodImageContainer">
 					<a href="#" onclick="editMainGoodImg()">
-						<img src="/img/goods/{{good.getImg()}}" class="bigGoodImg">
+						<img src="/img/goods/{{good.getImg()}}" class="bigGoodImg" id="main-good-img">
 					</a>
-					<div>
-						{# <form>
-							<div class="form-group">
-								<label for="loadMainImg">Load new main img file
-								</label>
-								<input type="file" class="form-control-file" id="loadMainImg">
-							</div>
-						</form> #}
+					<div id="bigImgDescript">
+
 						It's the main image of this good. To load a new image press on the picture
 					</div>
 				</div>
 				<label for="name">Title:
 				</label><br>
-				<input name="name" value="{{good.getName() | raw}}" class="form-control" onchange="markChanged(this)">
+				<input name="name" value="{{good.getName() | raw}}" class="form-control" onchange="markChanged(this)" id="name">
 				<br>
 				<label for="category">Category:
 				</label><br>
-				<select size="1" name="category" value="{{good.getCategory()}}" class="form-control" onchange="markChanged(this)">
+				<select size="1" name="category" value="{{good.getCategory()}}" class="form-control" onchange="markChanged(this)" id="category">
 					{% for category in good.getCategoriesList()  %}
 						<option value="{{category.id}}" {% if category.id==good.getCategory() %} selected {% endif %}>{{category.name}}</option>
 					{% endfor %}
@@ -40,48 +34,51 @@
 					<textarea class="form-control" id="description" rows="3" onchange="markChanged(this)">{{good.getDescription()}}</textarea>
 				</div>
 
-				<button class="btn btn-default">
+				<button class="btn btn-default" onclick="saveGeneralInfo({{good.getId()}})">
 					Save changes
 				</button>
+
+				<button class="btn btn-default" onclick="restoreInitParams()">
+					Cancel editing
+				</button>
 				{# <button class="btn btn-default">
-					Cancel
-				</button> #}
+																									Cancel
+																								</button> #}
 			</div>
 
 
-			<div class="col-md-6" >
+			<div class="col-md-6">
 
 				<ul class="nav nav-tabs">
-				
-				<li class="active">
-					<a data-toggle="tab" href="#images">Additional images</a>
-				</li>
-				<li>
-					<a data-toggle="tab" href="#good_price_block">Prices</a>
-				</li>
+
+					<li class="active">
+						<a data-toggle="tab" href="#images">Additional images</a>
+					</li>
+					<li>
+						<a data-toggle="tab" href="#good_price_block">Prices</a>
+					</li>
 				</ul>
 
 				<div class="tab-content">
-				<div class="tab-pane" id="images">
-					Images
+					<div class="tab-pane" id="images">
+						Images
+					</div>
+					<div class="tab-pane" id="good_price_block">
+						{% include "components/good_price_list.twig" %}
+					</div>
 				</div>
-				<div class="tab-pane" id="good_price_block">
-					{% include "components/good_price_list.twig" %}
-				</div>
-				</div>
-				
+
 			</div>
 
 		</div>
 	</div>
-	
+
 
 	{% include "components/load_img_form.twig" %}
 
 
 	{% include "components/good_price_edit.twig" %}
 
-	
 
-	<script src="/js/adminGoodOperations.js" defer> </script>
+	<script src="/js/adminGoodOperations.js" defer></script>
 {% endblock %}
