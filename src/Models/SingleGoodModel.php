@@ -78,9 +78,9 @@ class SingleGoodModel
         }
     }
 
-    protected function getAddPhotos(int $id): array
+    public function getAddPhotos(int $id = null): array
     {
-        $sql = "SELECT img FROM v_additional_goods_photos WHERE good_id=?";
+        $sql = "SELECT img, good_id, id FROM v_additional_goods_photos WHERE good_id=?";
         return DBConnService::selectRowsSet($sql, [$id]);
     }
 }

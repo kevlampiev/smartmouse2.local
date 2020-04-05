@@ -50,6 +50,14 @@ class AdminGoodModel extends SingleGoodModel
         return TwigService::getTwig()->render('components/good_price_list.twig', ['good' => $this]);
     }
 
+    public function getAddsImgsContents(): string
+    {
+        return TwigService::getTwig()->render(
+            'components/good_additional_imgs.twig',
+            ['addsImages' => $this->getAddPhotos($this->id)]
+        );
+    }
+
     public function addPrice(array $params): array
     {
         $sql = "INSERT INTO prices(good_id, price, currency, date_open) VALUES (?,?,?,?) ";
@@ -113,6 +121,44 @@ class AdminGoodModel extends SingleGoodModel
         return $res;
     }
 
+    private function addAdditionalImgs(array $params): array
+    {
+        $files = $params['fileNames'];
+        $dBase = DBConnService::getConnection();
+        try {
+            $dBase->beginTransaction();
+            foreach ($files as $file) {
+                $sql = "INSERT INTO goods_photos (good_id, photo_id) 
+                        SELECT ?,id FROM photos WHERE img=?";
+                $res = DBConnService::execQuery($sql, [
+                    $params['goodId'],
+                    $file
+                ]);
+            }
+            $dBase->commit();
+            $res = ['status' => 'success', 'content' => $this->getAddsImgsContents()];
+        } catch (Exception $e) {
+            $dBase->rollBack();
+            $res = ['status' => "Error: {$e->getMessage()}"];
+        }
+        return $res;
+    }
+
+    private function delAdditionalPhoto(array $params): array
+    {
+
+        try {
+            $sql = 'DELETE FROM goods_photos WHERE good_id=? AND photo_id=?';
+            $res = DBConnService::execQuery($sql, [$params['goodId'], $params['photoId']]);
+            if ($res['status'] == "Ok") {
+                $res = ['status' => 'success', 'content' => $this->getAddsImgsContents()];
+            }
+        } catch (Exception $e) {
+            $res = ['status' => "Error: {$e->getMessage()}"];
+        }
+        return $res;
+    }
+
     public function handleGood(array $params): array
     {
         switch ($params['action']) {
@@ -127,6 +173,12 @@ class AdminGoodModel extends SingleGoodModel
                 break;
             case 'updateGeneralInfo':
                 $res = $this->updateGeneralInfo($params);
+                break;
+            case 'addFiles':
+                $res = $this->addAdditionalImgs($params);
+                break;
+            case 'delAdditionalPhoto':
+                $res = $this->delAdditionalPhoto($params);
                 break;
             default:
                 $res = ['status' => "Error: the action {$params['action']} doesn't exist..."];

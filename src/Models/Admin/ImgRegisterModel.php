@@ -43,11 +43,11 @@ class ImgRegisterModel
     }
 
 
-    public function handleAllFiles(): array
+    public function handleAllFiles(): string
     {
-        $res = [];
+        $res = '';
         foreach ($this->files as $file) {
-            $res[] = $this->handleFile($file);
+            $res = $this->handleFile(key($this->files));
         }
         return $res;
     }
